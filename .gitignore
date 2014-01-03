@@ -19,3 +19,8 @@ DerivedData
 
 #CocoaPods
 Pods
+
+#Custom
+*~
+revision.plist
+.idea
