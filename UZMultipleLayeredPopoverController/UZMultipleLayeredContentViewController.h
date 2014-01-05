@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class UZMultipleLayeredPopoverController;
+@class UZMultipleLayeredPopoverBaseView;
 
 @interface UZMultipleLayeredContentViewController : UIViewController {
 	UZMultipleLayeredPopoverController	*_parentPopoverController;
+	UZMultipleLayeredPopoverBaseView	*_baseView;
 	UIViewController					*_contentViewController;
 	CGSize								_contentSize;
 	CGSize								_popoverSize;
@@ -22,5 +24,6 @@
 
 @property (nonatomic, readonly) CGSize contentSize;
 @property (nonatomic, readonly) CGSize popoverSize;
+@property (nonatomic, readonly) UZMultipleLayeredPopoverBaseView *baseView;
 
 @end

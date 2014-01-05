@@ -10,6 +10,8 @@
 
 #import "UZMultipleLayeredContentViewController.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 @implementation UIViewController (UZMultipleLayeredPopoverController)
 
 - (UZMultipleLayeredPopoverController*)parentMultipleLayeredPopoverController {
@@ -43,6 +45,10 @@
 		self.view.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.3];
 	}
 	return self;
+}
+
+- (void)presentLastChildViewControllerFromRect:(CGRect)fromRect inView:(UIView*)inView {
+	
 }
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent fromRect:(CGRect)fromRect inView:(UIView*)inView contentSize:(CGSize)contentSize {

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#define UZMultipleLayeredPopoverCornerRadious	10
+#define UZMultipleLayeredPopoverContentMargin	20
+#define UZMultipleLayeredPopoverArrowSize		10
+
 typedef enum _UZMultipleLayeredPopoverDirection {
 	UZMultipleLayeredPopoverTopDirection	= 1,
 	UZMultipleLayeredPopoverBottomDirection = 1 << 1,
@@ -22,5 +26,6 @@ typedef enum _UZMultipleLayeredPopoverDirection {
 
 @property (nonatomic, assign) UIEdgeInsets contentEdgeInsets;
 @property (nonatomic, assign) CGPoint popoverFromPoint;
+@property (nonatomic, assign) UZMultipleLayeredPopoverDirection direction;
 
 @end

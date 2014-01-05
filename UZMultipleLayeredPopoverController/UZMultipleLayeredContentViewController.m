@@ -18,7 +18,7 @@
 - (id)initWithContentViewController:(UIViewController*)contentViewController contentSize:(CGSize)contentSize {
 	self = [super init];
 	if (self) {
-		_contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+		_contentEdgeInsets = UIEdgeInsetsMake(UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin);
 		_contentViewController = contentViewController;
 		_contentSize = contentSize;
 		_popoverSize = contentSize;
@@ -39,9 +39,15 @@
 			DNSLog(@"%@", constraint);
 		}
 		
-		UZMultipleLayeredPopoverBaseView *baseView = [[UZMultipleLayeredPopoverBaseView alloc] initWithFrame:CGRectMake(0, 0, _popoverSize.width, _popoverSize.height)];
-		[self.view addSubview:baseView];
-		[self.view sendSubviewToBack:baseView];
+		[contentViewController.view.layer setCornerRadius:UZMultipleLayeredPopoverCornerRadious];
+		[contentViewController.view.layer setMasksToBounds:YES];
+		
+		_baseView = [[UZMultipleLayeredPopoverBaseView alloc] initWithFrame:CGRectMake(0, 0, _popoverSize.width, _popoverSize.height)];
+		[self.view addSubview:_baseView];
+		[self.view sendSubviewToBack:_baseView];
+		
+		_baseView.contentEdgeInsets = _contentEdgeInsets;
+//		_baseView.
 	}
 	return self;
 }
