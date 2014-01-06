@@ -56,6 +56,8 @@
 	
 	CGPoint centerInBaseView = [_inViewController.view convertPoint:center fromView:self.view];
 	
+	CGRect frameOfViewControllerInBaseView = [_inViewController.view convertRect:_inViewController.view.frame fromView:self.view];
+	
 	CGRect frame;
 	frame.size = viewController.popoverSize;
 	
@@ -68,6 +70,14 @@
 		viewController.contentSize = s;
 		frame.origin.y += fabsf(centerInBaseView.y - frame.size.height);
 		frame.size.height -= fabsf(centerInBaseView.y - frame.size.height);
+	}
+	if (frame.origin.x < 0) {
+		viewController.baseView.popoverOffset = -frame.origin.x;
+		frame.origin.x = 0;
+	}
+	else if (frame.origin.x + frame.size.width > frameOfViewControllerInBaseView.size.width) {
+		viewController.baseView.popoverOffset = frameOfViewControllerInBaseView.size.width - (frame.origin.x + frame.size.width);
+		frame.origin.x = (frameOfViewControllerInBaseView.size.width - frame.size.width);
 	}
 	
 	[self addChildViewController:viewController];
