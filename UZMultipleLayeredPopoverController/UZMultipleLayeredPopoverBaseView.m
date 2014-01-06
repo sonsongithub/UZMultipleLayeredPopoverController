@@ -24,7 +24,7 @@
     if (self) {
         // Initialization code
 		self.backgroundColor = [UIColor clearColor];
-		_direction = UZMultipleLayeredPopoverRightDirection;
+		_direction = UZMultipleLayeredPopoverBottomDirection;
     }
     return self;
 }
@@ -33,7 +33,6 @@
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	
 	float step = UZMultipleLayeredPopoverArrowSize;
-
 	float radius = UZMultipleLayeredPopoverCornerRadious;
 	
 	// get points
@@ -80,7 +79,6 @@
 	CGContextClosePath(context);
 	
 	[[UIColor whiteColor] setFill];
-//	[[UIColor blackColor] setStroke];
 	
 	CGContextDrawPath(context, kCGPathFill);
 	
