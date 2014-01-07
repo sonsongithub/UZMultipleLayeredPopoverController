@@ -32,6 +32,13 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	DNSLogMethod
+	[self.view removeFromSuperview];
+	for (UIViewController *vc in _layeredControllers) {
+		[vc removeFromParentViewController];
+		[vc.view removeFromSuperview];
+	}
+	[_layeredControllers removeAllObjects];
+	[self removeFromParentViewController];
 }
 
 - (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize {
@@ -96,7 +103,8 @@
 	_inViewController = inViewController;
 	[_inViewController addChildViewController:self];
 	[_inViewController.view addSubview:self.view];
-	self.view.bounds = _inViewController.view.bounds;
+	CGRect r = _inViewController.view.bounds;
+	self.view.frame = _inViewController.view.bounds;
 	
 	[self presentLastChildViewControllerFromRect:fromRect inView:inViewController.view];
 }

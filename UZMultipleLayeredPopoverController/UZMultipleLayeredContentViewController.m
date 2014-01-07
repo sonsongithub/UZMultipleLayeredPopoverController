@@ -15,7 +15,12 @@
 
 @implementation UZMultipleLayeredContentViewController
 
+- (void)dealloc {
+    DNSLogMethod
+}
+
 - (id)initWithContentViewController:(UIViewController*)contentViewController contentSize:(CGSize)contentSize {
+	DNSLogMethod
 	self = [super init];
 	if (self) {
 		_baseView = [[UZMultipleLayeredPopoverBaseView alloc] initWithFrame:CGRectMake(0, 0, _popoverSize.width, _popoverSize.height)];
@@ -35,10 +40,6 @@
 		
 		[self addChildViewController:contentViewController];
 		[self.view addSubview:contentViewController.view];
-//		CGRect childViewControllerFrame = CGRectMake(_contentEdgeInsets.left, _contentEdgeInsets.top, _contentSize.width, _contentSize.height);
-//		contentViewController.view.frame = childViewControllerFrame;
-//		_baseView.frame = CGRectMake(0, 0, _popoverSize.width, _popoverSize.height);
-//		_baseView.contentEdgeInsets = _contentEdgeInsets;
 		
 		[self updateSubviews];
 	}
