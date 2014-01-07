@@ -57,39 +57,37 @@
 - (void)presentLastChildViewControllerFromRect:(CGRect)fromRect inView:(UIView*)inView {
 	UZMultipleLayeredContentViewController *viewController = [_layeredControllers lastObject];
 	
+	// On the assumption that popover covers inViewController's view.
 	CGRect fromRectInPopover = [self.view convertRect:fromRect fromView:inView];
+	CGPoint centerInPopover = CGPointMake(CGRectGetMidX(fromRectInPopover), CGRectGetMidY(fromRectInPopover));
 	
-	CGPoint center = CGPointMake(CGRectGetMidX(fromRectInPopover), CGRectGetMidY(fromRectInPopover));
-	
-	CGPoint centerInBaseView = [_inViewController.view convertPoint:center fromView:self.view];
-	
-	CGRect frameOfViewControllerInBaseView = [_inViewController.view convertRect:_inViewController.view.frame fromView:self.view];
-	
-	CGRect frame;
-	frame.size = viewController.popoverSize;
-	
-	frame.origin.x = center.x - viewController.popoverSize.width/2;
-	frame.origin.y = center.y - viewController.popoverSize.height + UZMultipleLayeredPopoverArrowSize;
-	viewController.baseView.direction = UZMultipleLayeredPopoverBottomDirection;
-	if (centerInBaseView.y - frame.size.height < 0) {
-		CGSize s = viewController.contentSize;
-		s.height -= fabsf(centerInBaseView.y - frame.size.height);
-		viewController.contentSize = s;
-		frame.origin.y += fabsf(centerInBaseView.y - frame.size.height);
-		frame.size.height -= fabsf(centerInBaseView.y - frame.size.height);
-	}
-	if (frame.origin.x < 0) {
-		viewController.baseView.popoverOffset = -frame.origin.x;
-		frame.origin.x = 0;
-	}
-	else if (frame.origin.x + frame.size.width > frameOfViewControllerInBaseView.size.width) {
-		viewController.baseView.popoverOffset = frameOfViewControllerInBaseView.size.width - (frame.origin.x + frame.size.width);
-		frame.origin.x = (frameOfViewControllerInBaseView.size.width - frame.size.width);
-	}
-	
-	[self addChildViewController:viewController];
-	[self.view addSubview:viewController.view];
-	viewController.view.frame = frame;
+//	CGRect frameOfViewControllerInBaseView = [_inViewController.view convertRect:_inViewController.view.frame fromView:self.view];
+//	
+//	CGRect frame;
+//	frame.size = viewController.popoverSize;
+//	
+//	frame.origin.x = center.x - viewController.popoverSize.width/2;
+//	frame.origin.y = center.y - viewController.popoverSize.height + UZMultipleLayeredPopoverArrowSize;
+//	viewController.baseView.direction = UZMultipleLayeredPopoverBottomDirection;
+//	if (centerInBaseView.y - frame.size.height < 0) {
+//		CGSize s = viewController.contentSize;
+//		s.height -= fabsf(centerInBaseView.y - frame.size.height);
+//		viewController.contentSize = s;
+//		frame.origin.y += fabsf(centerInBaseView.y - frame.size.height);
+//		frame.size.height -= fabsf(centerInBaseView.y - frame.size.height);
+//	}
+//	if (frame.origin.x < 0) {
+//		viewController.baseView.popoverOffset = -frame.origin.x;
+//		frame.origin.x = 0;
+//	}
+//	else if (frame.origin.x + frame.size.width > frameOfViewControllerInBaseView.size.width) {
+//		viewController.baseView.popoverOffset = frameOfViewControllerInBaseView.size.width - (frame.origin.x + frame.size.width);
+//		frame.origin.x = (frameOfViewControllerInBaseView.size.width - frame.size.width);
+//	}
+//	
+//	[self addChildViewController:viewController];
+//	[self.view addSubview:viewController.view];
+//	viewController.view.frame = frame;
 }
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent fromRect:(CGRect)fromRect inView:(UIView*)inView contentSize:(CGSize)contentSize {
@@ -103,7 +101,6 @@
 	_inViewController = inViewController;
 	[_inViewController addChildViewController:self];
 	[_inViewController.view addSubview:self.view];
-	CGRect r = _inViewController.view.bounds;
 	self.view.frame = _inViewController.view.bounds;
 	
 	[self presentLastChildViewControllerFromRect:fromRect inView:inViewController.view];
