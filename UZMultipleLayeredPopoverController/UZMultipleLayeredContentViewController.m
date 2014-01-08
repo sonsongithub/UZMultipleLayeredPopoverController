@@ -10,6 +10,13 @@
 
 #import "UZMultipleLayeredPopoverBaseView.h"
 
+CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
+	CGSize popoverSize = contentSize;
+	popoverSize.width += ([UZMultipleLayeredContentViewController contentEdgeInsets].left + [UZMultipleLayeredContentViewController contentEdgeInsets].right);
+	popoverSize.height += ([UZMultipleLayeredContentViewController contentEdgeInsets].top + [UZMultipleLayeredContentViewController contentEdgeInsets].bottom);
+	return popoverSize;
+}
+
 @interface UZMultipleLayeredContentViewController ()
 @end
 
@@ -33,9 +40,7 @@
 		
 		_contentViewController = contentViewController;
 		_contentSize = contentSize;
-		_popoverSize = contentSize;
-		_popoverSize.width += ([UZMultipleLayeredContentViewController contentEdgeInsets].left + [UZMultipleLayeredContentViewController contentEdgeInsets].right);
-		_popoverSize.height += ([UZMultipleLayeredContentViewController contentEdgeInsets].top + [UZMultipleLayeredContentViewController contentEdgeInsets].bottom);
+		_popoverSize = UZMultipleLayeredPopoverSizeFromContentSize(_contentSize);
 		
 		contentViewController.view.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
 		[contentViewController.view.layer setCornerRadius:UZMultipleLayeredPopoverCornerRadious];
@@ -51,9 +56,7 @@
 
 - (void)setContentSize:(CGSize)contentSize {
 	_contentSize = contentSize;
-	_popoverSize = contentSize;
-	_popoverSize.width += ([UZMultipleLayeredContentViewController contentEdgeInsets].left + [UZMultipleLayeredContentViewController contentEdgeInsets].right);
-	_popoverSize.height += ([UZMultipleLayeredContentViewController contentEdgeInsets].top + [UZMultipleLayeredContentViewController contentEdgeInsets].bottom);
+	_popoverSize = UZMultipleLayeredPopoverSizeFromContentSize(_contentSize);
 	[self updateSubviews];
 	[_baseView setNeedsDisplay];
 }
@@ -65,9 +68,7 @@
 }
 
 - (void)updateSubviews {
-	_popoverSize = _contentSize;
-	_popoverSize.width += ([UZMultipleLayeredContentViewController contentEdgeInsets].left + [UZMultipleLayeredContentViewController contentEdgeInsets].right);
-	_popoverSize.height += ([UZMultipleLayeredContentViewController contentEdgeInsets].top + [UZMultipleLayeredContentViewController contentEdgeInsets].bottom);
+	_popoverSize = UZMultipleLayeredPopoverSizeFromContentSize(_contentSize);
 	CGRect childViewControllerFrame = CGRectMake([UZMultipleLayeredContentViewController contentEdgeInsets].left, [UZMultipleLayeredContentViewController contentEdgeInsets].top, _contentSize.width, _contentSize.height);
 	_contentViewController.view.frame = childViewControllerFrame;
 	_baseView.frame = CGRectMake(0, 0, _popoverSize.width, _popoverSize.height);

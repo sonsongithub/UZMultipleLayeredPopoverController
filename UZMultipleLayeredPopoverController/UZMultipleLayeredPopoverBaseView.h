@@ -21,6 +21,6 @@
 @property (nonatomic, assign) UIEdgeInsets contentEdgeInsets;
 @property (nonatomic, assign) CGPoint popoverFromPoint;
 @property (nonatomic, assign) UZMultipleLayeredPopoverDirection direction;
-@property (nonatomic, assign) float popoverOffset;
+@property (nonatomic, assign) float popoverArrowOffset;
 
 @end

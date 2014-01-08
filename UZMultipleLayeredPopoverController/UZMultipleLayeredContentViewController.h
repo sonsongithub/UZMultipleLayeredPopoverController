@@ -13,6 +13,8 @@
 @class UZMultipleLayeredPopoverController;
 @class UZMultipleLayeredPopoverBaseView;
 
+CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize);
+
 @interface UZMultipleLayeredContentViewController : UIViewController {
 	UZMultipleLayeredPopoverController	*_parentPopoverController;
 	UZMultipleLayeredPopoverBaseView	*_baseView;

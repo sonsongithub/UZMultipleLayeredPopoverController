@@ -44,6 +44,10 @@ static int counter = 1;
 	counter++;
 	if (counter == 6)
 		counter = 1;
+	
+	
+	direction = UZMultipleLayeredPopoverAnyDirection;
+	
 	UZMultipleLayeredPopoverController *controller = [[UZMultipleLayeredPopoverController alloc] initWithRootViewController:viewController contentSize:CGSizeMake(320, 480)];
 	
 	[controller presentFromRect:CGRectMake(touchPoint.x, touchPoint.y, 0, 0) inViewController:self direction:direction];

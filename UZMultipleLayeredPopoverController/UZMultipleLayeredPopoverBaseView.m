@@ -10,9 +10,8 @@
 
 @interface UZMultipleLayeredPopoverBaseView () {
 	UIEdgeInsets						_contentEdgeInsets;
-	CGPoint								_popoverFromPoint;
 	UZMultipleLayeredPopoverDirection	_direction;
-	float								_popoverOffset;
+	float								_popoverArrowOffset;
 }
 @end
 
@@ -47,7 +46,7 @@
 	CGContextAddArcToPoint(context, minx, miny, minx + radius, miny, radius);
 	
 	if (_direction == UZMultipleLayeredPopoverTopDirection) {
-		midx -= _popoverOffset;
+		midx -= _popoverArrowOffset;
 		if (midx < minx + UZMultipleLayeredPopoverCornerRadious + UZMultipleLayeredPopoverArrowSize)
 			midx = minx + UZMultipleLayeredPopoverCornerRadious + UZMultipleLayeredPopoverArrowSize;
 		else if (midx > maxx - UZMultipleLayeredPopoverCornerRadious - UZMultipleLayeredPopoverArrowSize)
@@ -59,7 +58,7 @@
 	CGContextAddArcToPoint(context, maxx, miny, maxx, miny + radius, radius);
 	
 	if (_direction == UZMultipleLayeredPopoverLeftDirection) {
-		midy -= _popoverOffset;
+		midy -= _popoverArrowOffset;
 		if (midy < miny + UZMultipleLayeredPopoverCornerRadious + UZMultipleLayeredPopoverArrowSize)
 			midy = miny + UZMultipleLayeredPopoverCornerRadious + UZMultipleLayeredPopoverArrowSize;
 		else if (midy > maxy - UZMultipleLayeredPopoverCornerRadious - UZMultipleLayeredPopoverArrowSize)
@@ -71,7 +70,7 @@
 	CGContextAddArcToPoint(context, maxx, maxy, maxx - radius, maxy, radius);
 	
 	if (_direction == UZMultipleLayeredPopoverBottomDirection) {
-		midx -= _popoverOffset;
+		midx -= _popoverArrowOffset;
 		if (midx < minx + UZMultipleLayeredPopoverCornerRadious + UZMultipleLayeredPopoverArrowSize)
 			midx = minx + UZMultipleLayeredPopoverCornerRadious + UZMultipleLayeredPopoverArrowSize;
 		else if (midx > maxx - UZMultipleLayeredPopoverCornerRadious - UZMultipleLayeredPopoverArrowSize)
@@ -83,7 +82,7 @@
 	CGContextAddArcToPoint(context, minx, maxy, minx, maxy - radius, radius);
 	
 	if (_direction == UZMultipleLayeredPopoverRightDirection) {
-		midy -= _popoverOffset;
+		midy -= _popoverArrowOffset;
 		if (midy < miny + UZMultipleLayeredPopoverCornerRadious + UZMultipleLayeredPopoverArrowSize)
 			midy = miny + UZMultipleLayeredPopoverCornerRadious + UZMultipleLayeredPopoverArrowSize;
 		else if (midy > maxy - UZMultipleLayeredPopoverCornerRadious - UZMultipleLayeredPopoverArrowSize)
