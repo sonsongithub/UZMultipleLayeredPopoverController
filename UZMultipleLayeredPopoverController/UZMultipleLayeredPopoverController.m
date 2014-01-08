@@ -54,84 +54,91 @@
 	return self;
 }
 
+CGSize popoverSizeFromContentSize(CGSize contentSize) {
+	CGSize popoverSize = contentSize;
+	popoverSize.width += ([UZMultipleLayeredContentViewController contentEdgeInsets].left + [UZMultipleLayeredContentViewController contentEdgeInsets].right);
+	popoverSize.height += ([UZMultipleLayeredContentViewController contentEdgeInsets].top + [UZMultipleLayeredContentViewController contentEdgeInsets].bottom);
+	return popoverSize;
+}
+
 - (CGRect)popoverRectForContentViewController:(UZMultipleLayeredContentViewController*)contentViewController centerOfFromRectInPopover:(CGPoint)centerOfFromRectInPopover direction:(UZMultipleLayeredPopoverDirection)direction {
+	
+	float popoverOffset = 0;
 	CGRect popoverRect = CGRectZero;
 	popoverRect.size = contentViewController.popoverSize;
+	CGSize popoverSize = contentViewController.popoverSize;
+	CGSize contentSize = contentViewController.contentSize;
 	
 	// On the assumption that popover covers inViewController's view.
 	if (direction == UZMultipleLayeredPopoverTopDirection) {
-		popoverRect.origin.x = centerOfFromRectInPopover.x - contentViewController.popoverSize.width/2;
+		popoverRect.origin.x = centerOfFromRectInPopover.x - popoverSize.width/2;
 		popoverRect.origin.y = centerOfFromRectInPopover.y - UZMultipleLayeredPopoverArrowSize;
 	}
 	else if (direction == UZMultipleLayeredPopoverBottomDirection) {
-		popoverRect.origin.x = centerOfFromRectInPopover.x - contentViewController.popoverSize.width/2;
-		popoverRect.origin.y = centerOfFromRectInPopover.y - contentViewController.popoverSize.height + UZMultipleLayeredPopoverArrowSize;
+		popoverRect.origin.x = centerOfFromRectInPopover.x - popoverSize.width/2;
+		popoverRect.origin.y = centerOfFromRectInPopover.y - popoverSize.height + UZMultipleLayeredPopoverArrowSize;
 	}
 	else if (direction == UZMultipleLayeredPopoverRightDirection) {
 		popoverRect.origin.x = centerOfFromRectInPopover.x - UZMultipleLayeredPopoverArrowSize;
-		popoverRect.origin.y = centerOfFromRectInPopover.y - contentViewController.popoverSize.height/2;
+		popoverRect.origin.y = centerOfFromRectInPopover.y - popoverSize.height/2;
 	}
 	else if (direction == UZMultipleLayeredPopoverLeftDirection) {
-		popoverRect.origin.x = centerOfFromRectInPopover.x - contentViewController.popoverSize.width + UZMultipleLayeredPopoverArrowSize;
-		popoverRect.origin.y = centerOfFromRectInPopover.y - contentViewController.popoverSize.height/2;
+		popoverRect.origin.x = centerOfFromRectInPopover.x - popoverSize.width + UZMultipleLayeredPopoverArrowSize;
+		popoverRect.origin.y = centerOfFromRectInPopover.y - popoverSize.height/2;
 	}
 	
 	// Adjust the position of baloon's arrow
 	if (direction == UZMultipleLayeredPopoverTopDirection || direction == UZMultipleLayeredPopoverBottomDirection) {
 		if (popoverRect.origin.x < 0) {
-			contentViewController.baseView.popoverOffset = - (centerOfFromRectInPopover.x - contentViewController.popoverSize.width/2);
+			popoverOffset = - (centerOfFromRectInPopover.x - popoverSize.width/2);
 			popoverRect.origin.x = 0;
 
 			// Adjust width when right edge goes over the parent view.
 			if (popoverRect.origin.x + popoverRect.size.width > self.view.frame.size.width) {
-				CGSize contentSize = contentViewController.contentSize;
 				contentSize.width -= fabsf(popoverRect.origin.x + popoverRect.size.width - self.view.frame.size.width);
-				contentViewController.contentSize = contentSize;
-				contentViewController.baseView.popoverOffset = - (centerOfFromRectInPopover.x - contentViewController.popoverSize.width/2);
-				popoverRect.size = contentViewController.popoverSize;
+				popoverSize = popoverSizeFromContentSize(contentSize);
+				popoverOffset = - (centerOfFromRectInPopover.x - popoverSize.width/2);
+				popoverRect.size = popoverSize;
 			}
 		}
 		else if (popoverRect.origin.x + popoverRect.size.width > self.view.frame.size.width) {
-			contentViewController.baseView.popoverOffset = (self.view.frame.size.width - (centerOfFromRectInPopover.x + contentViewController.popoverSize.width/2));
+			popoverOffset = (self.view.frame.size.width - (centerOfFromRectInPopover.x + popoverSize.width/2));
 			popoverRect.origin.x = (self.view.frame.size.width - popoverRect.size.width);
 
 			// Adjust width when right edge goes over the parent view.
 			if (popoverRect.origin.x < 0) {
-				CGSize contentSize = contentViewController.contentSize;
 				contentSize.width -= fabsf(popoverRect.origin.x);
-				contentViewController.contentSize = contentSize;
-				contentViewController.baseView.popoverOffset = - (centerOfFromRectInPopover.x - contentViewController.popoverSize.width/2);
+				popoverSize = popoverSizeFromContentSize(contentSize);
+				popoverOffset = - (centerOfFromRectInPopover.x - popoverSize.width/2);
 				popoverRect.origin.x = 0;
-				popoverRect.size = contentViewController.popoverSize;
+				popoverRect.size = popoverSize;
 			}
 		}
 	}
 	else if (direction == UZMultipleLayeredPopoverRightDirection || direction == UZMultipleLayeredPopoverLeftDirection) {
 		if (popoverRect.origin.y < 0) {
-			contentViewController.baseView.popoverOffset = - (centerOfFromRectInPopover.y - contentViewController.popoverSize.height/2);
+			popoverOffset = - (centerOfFromRectInPopover.y - popoverSize.height/2);
 			popoverRect.origin.y = 0;
 			
 			// Adjust width when top edge goes over the parent view.
 			if (popoverRect.origin.y + popoverRect.size.height > self.view.frame.size.height) {
-				CGSize contentSize = contentViewController.contentSize;
 				contentSize.height -= fabsf(popoverRect.origin.y + popoverRect.size.height - self.view.frame.size.height);
-				contentViewController.contentSize = contentSize;
-				contentViewController.baseView.popoverOffset = - (centerOfFromRectInPopover.y - contentViewController.popoverSize.height/2);
-				popoverRect.size = contentViewController.popoverSize;
+				popoverSize = popoverSizeFromContentSize(contentSize);
+				popoverOffset = - (centerOfFromRectInPopover.y - popoverSize.height/2);
+				popoverRect.size = popoverSize;
 			}
 		}
 		else if (popoverRect.origin.y + popoverRect.size.height > self.view.frame.size.height) {
-			contentViewController.baseView.popoverOffset = (self.view.frame.size.height - (centerOfFromRectInPopover.y + contentViewController.popoverSize.height/2));
+			popoverOffset = (self.view.frame.size.height - (centerOfFromRectInPopover.y + popoverSize.height/2));
 			popoverRect.origin.y = (self.view.frame.size.height - popoverRect.size.height);
 			
 			// Adjust width when right edge goes over the parent view.
 			if (popoverRect.origin.y < 0) {
-				CGSize contentSize = contentViewController.contentSize;
 				contentSize.height -= fabsf(popoverRect.origin.y);
-				contentViewController.contentSize = contentSize;
-				contentViewController.baseView.popoverOffset = - (centerOfFromRectInPopover.y - contentViewController.popoverSize.height/2);
+				popoverSize = popoverSizeFromContentSize(contentSize);
+				popoverOffset = - (centerOfFromRectInPopover.y - popoverSize.height/2);
 				popoverRect.origin.y = 0;
-				popoverRect.size = contentViewController.popoverSize;
+				popoverRect.size = popoverSize;
 			}
 		}
 	}
@@ -139,41 +146,40 @@
 	if (direction == UZMultipleLayeredPopoverTopDirection) {
 		// Adjust height when bottom edge goes over the parent view.
 		if (popoverRect.origin.y + popoverRect.size.height > self.view.frame.size.height) {
-			CGSize contentSize = contentViewController.contentSize;
 			contentSize.height -= fabsf(popoverRect.origin.y + popoverRect.size.height - self.view.frame.size.height);
-			contentViewController.contentSize = contentSize;
-			popoverRect.size = contentViewController.popoverSize;
+			popoverSize = popoverSizeFromContentSize(contentSize);
+			popoverRect.size = popoverSize;
 		}
 	}
 	else if (direction == UZMultipleLayeredPopoverBottomDirection) {
 		// Adjust height when bottom edge goes over the parent view.
 		if (popoverRect.origin.y < 0) {
-			CGSize contentSize = contentViewController.contentSize;
 			contentSize.height -= fabsf(popoverRect.origin.y);
-			contentViewController.contentSize = contentSize;
+			popoverSize = popoverSizeFromContentSize(contentSize);
 			popoverRect.origin.y = 0;
-			popoverRect.size = contentViewController.popoverSize;
+			popoverRect.size = popoverSize;
 		}
 	}
 	else if (direction == UZMultipleLayeredPopoverRightDirection) {
 		// Adjust height when bottom edge goes over the parent view.
 		if (popoverRect.origin.x + popoverRect.size.width > self.view.frame.size.width) {
-			CGSize contentSize = contentViewController.contentSize;
 			contentSize.width -= fabsf(popoverRect.origin.x + popoverRect.size.width - self.view.frame.size.width);
-			contentViewController.contentSize = contentSize;
-			popoverRect.size = contentViewController.popoverSize;
+			popoverSize = popoverSizeFromContentSize(contentSize);
+			popoverRect.size = popoverSize;
 		}
 	}
 	else if (direction == UZMultipleLayeredPopoverLeftDirection) {
 		// Adjust height when bottom edge goes over the parent view.
 		if (popoverRect.origin.x < 0) {
-			CGSize contentSize = contentViewController.contentSize;
 			contentSize.width -= fabsf(popoverRect.origin.x);
-			contentViewController.contentSize = contentSize;
+			popoverSize = popoverSizeFromContentSize(contentSize);
 			popoverRect.origin.x = 0;
-			popoverRect.size = contentViewController.popoverSize;
+			popoverRect.size = popoverSize;
 		}
 	}
+	
+	contentViewController.contentSize = contentSize;
+	contentViewController.baseView.popoverOffset = popoverOffset;
 	
 	return popoverRect;
 }

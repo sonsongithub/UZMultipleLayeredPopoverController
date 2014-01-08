@@ -19,6 +19,10 @@
     DNSLogMethod
 }
 
++ (UIEdgeInsets)contentEdgeInsets {
+	return UIEdgeInsetsMake(UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin);
+}
+
 - (id)initWithContentViewController:(UIViewController*)contentViewController contentSize:(CGSize)contentSize {
 	DNSLogMethod
 	self = [super init];
@@ -27,12 +31,11 @@
 		[self.view addSubview:_baseView];
 		[self.view sendSubviewToBack:_baseView];
 		
-		_contentEdgeInsets = UIEdgeInsetsMake(UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin);
 		_contentViewController = contentViewController;
 		_contentSize = contentSize;
 		_popoverSize = contentSize;
-		_popoverSize.width += (_contentEdgeInsets.left + _contentEdgeInsets.right);
-		_popoverSize.height += (_contentEdgeInsets.top + _contentEdgeInsets.bottom);
+		_popoverSize.width += ([UZMultipleLayeredContentViewController contentEdgeInsets].left + [UZMultipleLayeredContentViewController contentEdgeInsets].right);
+		_popoverSize.height += ([UZMultipleLayeredContentViewController contentEdgeInsets].top + [UZMultipleLayeredContentViewController contentEdgeInsets].bottom);
 		
 		contentViewController.view.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
 		[contentViewController.view.layer setCornerRadius:UZMultipleLayeredPopoverCornerRadious];
@@ -49,8 +52,8 @@
 - (void)setContentSize:(CGSize)contentSize {
 	_contentSize = contentSize;
 	_popoverSize = contentSize;
-	_popoverSize.width += (_contentEdgeInsets.left + _contentEdgeInsets.right);
-	_popoverSize.height += (_contentEdgeInsets.top + _contentEdgeInsets.bottom);
+	_popoverSize.width += ([UZMultipleLayeredContentViewController contentEdgeInsets].left + [UZMultipleLayeredContentViewController contentEdgeInsets].right);
+	_popoverSize.height += ([UZMultipleLayeredContentViewController contentEdgeInsets].top + [UZMultipleLayeredContentViewController contentEdgeInsets].bottom);
 	[self updateSubviews];
 	[_baseView setNeedsDisplay];
 }
@@ -63,12 +66,12 @@
 
 - (void)updateSubviews {
 	_popoverSize = _contentSize;
-	_popoverSize.width += (_contentEdgeInsets.left + _contentEdgeInsets.right);
-	_popoverSize.height += (_contentEdgeInsets.top + _contentEdgeInsets.bottom);
-	CGRect childViewControllerFrame = CGRectMake(_contentEdgeInsets.left, _contentEdgeInsets.top, _contentSize.width, _contentSize.height);
+	_popoverSize.width += ([UZMultipleLayeredContentViewController contentEdgeInsets].left + [UZMultipleLayeredContentViewController contentEdgeInsets].right);
+	_popoverSize.height += ([UZMultipleLayeredContentViewController contentEdgeInsets].top + [UZMultipleLayeredContentViewController contentEdgeInsets].bottom);
+	CGRect childViewControllerFrame = CGRectMake([UZMultipleLayeredContentViewController contentEdgeInsets].left, [UZMultipleLayeredContentViewController contentEdgeInsets].top, _contentSize.width, _contentSize.height);
 	_contentViewController.view.frame = childViewControllerFrame;
 	_baseView.frame = CGRectMake(0, 0, _popoverSize.width, _popoverSize.height);
-	_baseView.contentEdgeInsets = _contentEdgeInsets;
+	_baseView.contentEdgeInsets = [UZMultipleLayeredContentViewController contentEdgeInsets];
 }
 
 @end
