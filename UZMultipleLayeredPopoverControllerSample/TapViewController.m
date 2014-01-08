@@ -7,11 +7,9 @@
 //
 
 #import "TapViewController.h"
-
 #import "UZMultipleLayeredPopoverController.h"
 
 @interface TapViewController ()
-
 @end
 
 @implementation TapViewController
@@ -27,7 +25,7 @@
 	
 	UIApplication *application = [UIApplication sharedApplication];
 	UIViewController *vc = [application.keyWindow.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"TapViewController"];
-	[pop presentViewController:vc fromRect:CGRectMake(touchPoint.x, touchPoint.y, 0, 0) inView:self.view contentSize:CGSizeMake(320, 480)];
+	[pop presentViewController:vc fromRect:CGRectMake(touchPoint.x, touchPoint.y, 0, 0) inView:self.view contentSize:CGSizeMake(320, 480) direction:UZMultipleLayeredPopoverAnyDirection];
 }
 
 @end

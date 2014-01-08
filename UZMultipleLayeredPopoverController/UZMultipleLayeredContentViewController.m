@@ -48,7 +48,17 @@
 
 - (void)setContentSize:(CGSize)contentSize {
 	_contentSize = contentSize;
+	_popoverSize = contentSize;
+	_popoverSize.width += (_contentEdgeInsets.left + _contentEdgeInsets.right);
+	_popoverSize.height += (_contentEdgeInsets.top + _contentEdgeInsets.bottom);
 	[self updateSubviews];
+	[_baseView setNeedsDisplay];
+}
+
+- (void)setDirection:(UZMultipleLayeredPopoverDirection)direction {
+	_direction = direction;
+	_baseView.direction = direction;
+	[_baseView setNeedsDisplay];
 }
 
 - (void)updateSubviews {

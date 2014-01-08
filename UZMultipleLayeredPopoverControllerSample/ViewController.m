@@ -16,6 +16,8 @@
 
 @implementation ViewController
 
+static int counter = 1;
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	DNSLogMethod
 	
@@ -27,10 +29,24 @@
 //	id viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ContentViewController"];
 	id viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationController"];
 	
-
+	UZMultipleLayeredPopoverDirection direction;
+	
+	if (counter == 1)
+		direction = UZMultipleLayeredPopoverTopDirection;
+	if (counter == 2)
+		direction = UZMultipleLayeredPopoverBottomDirection;
+	if (counter == 3)
+		direction = UZMultipleLayeredPopoverRightDirection;
+	if (counter == 4)
+		direction = UZMultipleLayeredPopoverLeftDirection;
+	if (counter == 5)
+		direction = UZMultipleLayeredPopoverAnyDirection;
+	counter++;
+	if (counter == 6)
+		counter = 1;
 	UZMultipleLayeredPopoverController *controller = [[UZMultipleLayeredPopoverController alloc] initWithRootViewController:viewController contentSize:CGSizeMake(320, 480)];
 	
-	[controller presentFromRect:CGRectMake(touchPoint.x, touchPoint.y, 0, 0) inViewController:self];
+	[controller presentFromRect:CGRectMake(touchPoint.x, touchPoint.y, 0, 0) inViewController:self direction:direction];
 	
 	[self resignFirstResponder];
 }

@@ -20,6 +20,7 @@
 	CGSize								_contentSize;
 	CGSize								_popoverSize;
 	UIEdgeInsets						_contentEdgeInsets;
+	UZMultipleLayeredPopoverDirection	_direction;
 }
 
 - (id)initWithContentViewController:(UIViewController*)contentViewController contentSize:(CGSize)contentSize;
@@ -27,5 +28,6 @@
 @property (nonatomic, assign) CGSize contentSize;
 @property (nonatomic, readonly) CGSize popoverSize;
 @property (nonatomic, readonly) UZMultipleLayeredPopoverBaseView *baseView;
+@property (nonatomic, assign) UZMultipleLayeredPopoverDirection direction;
 
 @end

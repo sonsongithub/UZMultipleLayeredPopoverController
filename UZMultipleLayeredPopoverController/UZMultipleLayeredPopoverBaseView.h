@@ -7,18 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UZMultipleLayeredPopoverBaseView.h"
+#import "UZMultipleLayeredPopoverController.h"
 
 #define UZMultipleLayeredPopoverCornerRadious	10
 #define UZMultipleLayeredPopoverContentMargin	20
 #define UZMultipleLayeredPopoverArrowSize		10
-
-typedef enum _UZMultipleLayeredPopoverDirection {
-	UZMultipleLayeredPopoverTopDirection	= 1,
-	UZMultipleLayeredPopoverBottomDirection = 1 << 1,
-	UZMultipleLayeredPopoverLeftDirection	= 1 << 2,
-	UZMultipleLayeredPopoverRightDirection	= 1 << 3,
-	UZMultipleLayeredPopoverAnyDirection	= (1 << 0) & (1 << 1) & (1 << 2) & (1 << 3)
-}UZMultipleLayeredPopoverDirection;
 
 #define UZMultipleLayeredPopoverAnyDirection (UZMultipleLayeredPopoverTopDirection&UZMultipleLayeredPopoverBottomDirection&UZMultipleLayeredPopoverLeftDirection&UZMultipleLayeredPopoverRightDirection)
 

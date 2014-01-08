@@ -48,14 +48,22 @@
 	
 	if (_direction == UZMultipleLayeredPopoverTopDirection) {
 		midx -= _popoverOffset;
+		if (midx < minx + UZMultipleLayeredPopoverCornerRadious + UZMultipleLayeredPopoverArrowSize)
+			midx = minx + UZMultipleLayeredPopoverCornerRadious + UZMultipleLayeredPopoverArrowSize;
+		else if (midx > maxx - UZMultipleLayeredPopoverCornerRadious - UZMultipleLayeredPopoverArrowSize)
+			midx = maxx - UZMultipleLayeredPopoverCornerRadious - UZMultipleLayeredPopoverArrowSize;
 		CGContextAddLineToPoint(context, midx - step, miny);
 		CGContextAddLineToPoint(context, midx, miny - step);
 		CGContextAddLineToPoint(context, midx + step, miny);
 	}
 	CGContextAddArcToPoint(context, maxx, miny, maxx, miny + radius, radius);
 	
-	if (_direction == UZMultipleLayeredPopoverRightDirection) {
+	if (_direction == UZMultipleLayeredPopoverLeftDirection) {
 		midy -= _popoverOffset;
+		if (midy < miny + UZMultipleLayeredPopoverCornerRadious + UZMultipleLayeredPopoverArrowSize)
+			midy = miny + UZMultipleLayeredPopoverCornerRadious + UZMultipleLayeredPopoverArrowSize;
+		else if (midy > maxy - UZMultipleLayeredPopoverCornerRadious - UZMultipleLayeredPopoverArrowSize)
+			midy = maxy - UZMultipleLayeredPopoverCornerRadious - UZMultipleLayeredPopoverArrowSize;
 		CGContextAddLineToPoint(context, maxx, midy - step);
 		CGContextAddLineToPoint(context, maxx + step, midy);
 		CGContextAddLineToPoint(context, maxx, midy + step);
@@ -64,14 +72,22 @@
 	
 	if (_direction == UZMultipleLayeredPopoverBottomDirection) {
 		midx -= _popoverOffset;
+		if (midx < minx + UZMultipleLayeredPopoverCornerRadious + UZMultipleLayeredPopoverArrowSize)
+			midx = minx + UZMultipleLayeredPopoverCornerRadious + UZMultipleLayeredPopoverArrowSize;
+		else if (midx > maxx - UZMultipleLayeredPopoverCornerRadious - UZMultipleLayeredPopoverArrowSize)
+			midx = maxx - UZMultipleLayeredPopoverCornerRadious - UZMultipleLayeredPopoverArrowSize;
 		CGContextAddLineToPoint(context, midx + step, maxy);
 		CGContextAddLineToPoint(context, midx, maxy + step);
 		CGContextAddLineToPoint(context, midx - step, maxy);
 	}
 	CGContextAddArcToPoint(context, minx, maxy, minx, maxy - radius, radius);
 	
-	if (_direction == UZMultipleLayeredPopoverLeftDirection) {
+	if (_direction == UZMultipleLayeredPopoverRightDirection) {
 		midy -= _popoverOffset;
+		if (midy < miny + UZMultipleLayeredPopoverCornerRadious + UZMultipleLayeredPopoverArrowSize)
+			midy = miny + UZMultipleLayeredPopoverCornerRadious + UZMultipleLayeredPopoverArrowSize;
+		else if (midy > maxy - UZMultipleLayeredPopoverCornerRadious - UZMultipleLayeredPopoverArrowSize)
+			midy = maxy - UZMultipleLayeredPopoverCornerRadious - UZMultipleLayeredPopoverArrowSize;
 		CGContextAddLineToPoint(context, minx, midy + step);
 		CGContextAddLineToPoint(context, minx - step, midy);
 		CGContextAddLineToPoint(context, minx, midy - step);
