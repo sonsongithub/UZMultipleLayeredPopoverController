@@ -42,7 +42,7 @@
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="fmw-H6-8f2" style="IBUITableViewCellStyleDefault" id="hba-0h-Oo4">
                                         <rect key="frame" x="0.0" y="22" width="768" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hba-0h-Oo4">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hba-0h-Oo4" id="DR6-ha-1b3">
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -372,16 +372,70 @@
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ewy-mQ-rpV">
-                                <rect key="frame" x="20" y="20" width="51" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sgr-0r-B0R">
+                                <rect key="frame" x="369" y="465" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </switch>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="UQH-yM-qth">
-                                <rect key="frame" x="18" y="59" width="118" height="34"/>
+                                <state key="normal" title="any">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="any:" destination="Qg7-u4-5br" eventType="touchUpInside" id="0dc-br-YkV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ky-ce-5HD">
+                                <rect key="frame" x="369" y="405" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </slider>
+                                <state key="normal" title="top">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="up:" destination="Qg7-u4-5br" eventType="touchUpInside" id="OYu-8F-UhN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VdS-AK-LCO">
+                                <rect key="frame" x="299" y="465" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="left">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="left:" destination="Qg7-u4-5br" eventType="touchUpInside" id="mPC-LL-22e"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K8b-KL-PpR">
+                                <rect key="frame" x="439" y="465" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="right">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="right:" destination="Qg7-u4-5br" eventType="touchUpInside" id="CTf-ws-shZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AE9-pQ-PRK">
+                                <rect key="frame" x="359" y="525" width="50" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="bottom">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="down:" destination="Qg7-u4-5br" eventType="touchUpInside" id="wJr-vG-jbs"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="AE9-pQ-PRK" firstAttribute="top" secondItem="Sgr-0r-B0R" secondAttribute="bottom" constant="30" id="06f-0Q-IpB"/>
+                            <constraint firstAttribute="centerY" secondItem="VdS-AK-LCO" secondAttribute="centerY" id="0Yf-Pe-dJh"/>
+                            <constraint firstAttribute="centerX" secondItem="7Ky-ce-5HD" secondAttribute="centerX" id="5JY-Lu-qcD"/>
+                            <constraint firstAttribute="centerY" secondItem="K8b-KL-PpR" secondAttribute="centerY" id="8Nk-bN-g37"/>
+                            <constraint firstItem="Sgr-0r-B0R" firstAttribute="top" secondItem="7Ky-ce-5HD" secondAttribute="bottom" constant="30" id="CgK-0q-Pkl"/>
+                            <constraint firstItem="Sgr-0r-B0R" firstAttribute="leading" secondItem="VdS-AK-LCO" secondAttribute="trailing" constant="40" id="Eqc-VJ-MHV"/>
+                            <constraint firstItem="K8b-KL-PpR" firstAttribute="leading" secondItem="Sgr-0r-B0R" secondAttribute="trailing" constant="40" id="JTf-xx-nJq"/>
+                            <constraint firstAttribute="centerY" secondItem="Sgr-0r-B0R" secondAttribute="centerY" id="ijM-Z3-lIn"/>
+                            <constraint firstAttribute="centerX" secondItem="AE9-pQ-PRK" secondAttribute="centerX" id="jh3-Qk-NHk"/>
+                            <constraint firstAttribute="centerX" secondItem="Sgr-0r-B0R" secondAttribute="centerX" id="mH8-eC-Lzq"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="DC7-Lo-6IR"/>

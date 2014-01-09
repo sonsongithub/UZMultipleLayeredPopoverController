@@ -14,18 +14,39 @@
 
 @implementation TapViewController
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	DNSLogMethod
-	DNSLog(@"%@", self.parentViewController.parentViewController);
-	
-	UITouch *touch = [touches anyObject];
-	CGPoint touchPoint = [touch locationInView:self.view];
-	
+- (IBAction)up:(id)sender {
+	UIButton *button = sender;
+	[self showAtButtonFrame:button.frame direction:UZMultipleLayeredPopoverBottomDirection];
+}
+
+- (IBAction)down:(id)sender {
+	UIButton *button = sender;
+	[self showAtButtonFrame:button.frame direction:UZMultipleLayeredPopoverTopDirection];
+}
+
+- (IBAction)left:(id)sender {
+	UIButton *button = sender;
+	[self showAtButtonFrame:button.frame direction:UZMultipleLayeredPopoverLeftDirection];
+}
+
+- (IBAction)right:(id)sender {
+	UIButton *button = sender;
+	[self showAtButtonFrame:button.frame direction:UZMultipleLayeredPopoverRightDirection];
+}
+
+- (IBAction)any:(id)sender {
+	UIButton *button = sender;
+	[self showAtButtonFrame:button.frame direction:UZMultipleLayeredPopoverAnyDirection];
+}
+
+- (void)showAtButtonFrame:(CGRect)buttonFrame direction:(UZMultipleLayeredPopoverDirection)direction {
 	UZMultipleLayeredPopoverController *pop = [self parentMultipleLayeredPopoverController];
-	
 	UIApplication *application = [UIApplication sharedApplication];
 	UIViewController *vc = [application.keyWindow.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"TapViewController"];
-	[pop presentViewController:vc fromRect:CGRectMake(touchPoint.x, touchPoint.y, 0, 0) inView:self.view contentSize:CGSizeMake(320, 480) direction:UZMultipleLayeredPopoverAnyDirection];
+	[pop presentViewController:vc fromRect:buttonFrame inView:self.view contentSize:CGSizeMake(320, 480) direction:direction];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 }
 
 @end
