@@ -13,6 +13,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define CGRectGetCenter(p)	CGPointMake(CGRectGetMidX(p), CGRectGetMidY(p))
+#define CGSizeGetArea(p) p.width * p.height
 
 @implementation UIViewController (UZMultipleLayeredPopoverController)
 
@@ -211,10 +212,11 @@
 											   offset:&popoverArrowOffsets[i]];
 		}
 		int saved = 0;
-		float square = contentSizes[0].width * contentSizes[0].height;
+		float maxArea = CGSizeGetArea(contentSizes[0]);
 		for (int i = 1; i < 4; i++) {
-			if (square < contentSizes[i].width * contentSizes[i].height) {
-				square = contentSizes[i].width * contentSizes[i].height;
+			float area = CGSizeGetArea(contentSizes[i]);
+			if (maxArea < area) {
+				maxArea = area;
 				saved = i;
 			}
 		}
