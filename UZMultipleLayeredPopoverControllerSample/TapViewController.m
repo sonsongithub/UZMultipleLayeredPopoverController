@@ -39,6 +39,16 @@
 	[self showAtButtonFrame:button.frame direction:UZMultipleLayeredPopoverAnyDirection];
 }
 
+- (IBAction)closeThis:(id)sender {
+	UZMultipleLayeredPopoverController *pop = [self parentMultipleLayeredPopoverController];
+	[pop dismissTopViewController];
+}
+
+- (IBAction)closeAll:(id)sender {
+	UZMultipleLayeredPopoverController *pop = [self parentMultipleLayeredPopoverController];
+	[pop dismiss];
+}
+
 - (void)showAtButtonFrame:(CGRect)buttonFrame direction:(UZMultipleLayeredPopoverDirection)direction {
 	UZMultipleLayeredPopoverController *pop = [self parentMultipleLayeredPopoverController];
 	UIApplication *application = [UIApplication sharedApplication];

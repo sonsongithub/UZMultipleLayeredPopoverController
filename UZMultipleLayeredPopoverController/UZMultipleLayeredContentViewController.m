@@ -92,8 +92,8 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 								  _popoverSize.height - [UZMultipleLayeredContentViewController contentEdgeInsets].top - [UZMultipleLayeredContentViewController contentEdgeInsets].bottom
 								  );
 		_dummyView = [[UZMultipleLayeredPopoverTouchDummyView alloc] initWithFrame:frame];
-		_dummyView.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.4];
-		//_dummyView.backgroundColor = [UIColor clearColor];
+		//_dummyView.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.4];
+		_dummyView.backgroundColor = [UIColor clearColor];
 		_dummyView.delegate = self;
 		self.view.alpha = 0.5;
 	}

@@ -37,8 +37,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 }
 
-- (void)dummyViewDidTouch:(UZMultipleLayeredPopoverTouchDummyView*)view {
-	DNSLogMethod
+- (void)dismiss {
 	[self.view removeFromSuperview];
 	for (UIViewController *vc in _layeredControllers) {
 		[vc removeFromParentViewController];
@@ -50,6 +49,35 @@
 	_dummyView = nil;
 }
 
+- (void)dismissTopViewController {
+	if ([_layeredControllers count] == 1) {
+		[self dismiss];
+	}
+	else {
+		UIViewController *vc = [_layeredControllers lastObject];
+		[vc removeFromParentViewController];
+		[vc.view removeFromSuperview];
+		[_layeredControllers removeObject:vc];
+		UZMultipleLayeredContentViewController *contentViewController = [_layeredControllers lastObject];
+		[contentViewController setActive:YES];
+	}
+}
+
+- (void)removeChildViewControllersToPopoverContentViewController:(UZMultipleLayeredContentViewController*)contentViewController {
+	DNSLogMethod
+	for (UIViewController *vc in [_layeredControllers reverseObjectEnumerator]) {
+		if (vc == contentViewController)
+			break;
+		[vc removeFromParentViewController];
+		[vc.view removeFromSuperview];
+		[_layeredControllers removeObject:vc];
+	}
+}
+
+- (void)dummyViewDidTouch:(UZMultipleLayeredPopoverTouchDummyView*)view {
+	[self dismiss];
+}
+
 - (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize {
 	self = [super init];
 	if (self) {
@@ -58,7 +86,7 @@
 		
 		[_layeredControllers addObject:object];
 		
-		self.view.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.3];
+		self.view.backgroundColor = [UIColor clearColor];
 	}
 	return self;
 }
@@ -248,16 +276,6 @@
 	UZMultipleLayeredContentViewController *viewController = [[UZMultipleLayeredContentViewController alloc] initWithContentViewController:viewControllerToPresent contentSize:contentSize];
 	[_layeredControllers addObject:viewController];
 	[self presentLastChildViewControllerFromRect:fromRect inView:inView direction:direction];
-}
-
-- (void)removeChildViewControllersToPopoverContentViewController:(UZMultipleLayeredContentViewController*)contentViewController {
-	DNSLogMethod
-	for (UIViewController *vc in [_layeredControllers reverseObjectEnumerator]) {
-		if (vc == contentViewController)
-			break;
-		[vc removeFromParentViewController];
-		[vc.view removeFromSuperview];
-	}
 }
 
 - (void)presentFromRect:(CGRect)fromRect inViewController:(UIViewController*)inViewController direction:(UZMultipleLayeredPopoverDirection)direction {
