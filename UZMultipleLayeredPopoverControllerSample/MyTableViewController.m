@@ -14,7 +14,7 @@
 
 @implementation MyTableViewController
 
-- (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return 20;
 }
 

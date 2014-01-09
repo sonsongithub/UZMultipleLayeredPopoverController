@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "UZMultipleLayeredPopoverTouchDummyView.h"
+
 typedef enum _UZMultipleLayeredPopoverDirection {
 	UZMultipleLayeredPopoverTopDirection	= 1,
 	UZMultipleLayeredPopoverBottomDirection = 1 << 1,
@@ -24,9 +26,10 @@ typedef enum _UZMultipleLayeredPopoverDirection {
 - (UZMultipleLayeredPopoverController*)parentMultipleLayeredPopoverController;
 @end
 
-@interface UZMultipleLayeredPopoverController : UIViewController {
+@interface UZMultipleLayeredPopoverController : UIViewController <UZMultipleLayeredPopoverTouchDummyViewDelegate> {
 	UIViewController *_inViewController;
 	NSMutableArray *_layeredControllers;
+	UZMultipleLayeredPopoverTouchDummyView *_dummyView;
 }
 - (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize;
 - (void)presentFromRect:(CGRect)fromRect inViewController:(UIViewController*)inViewController direction:(UZMultipleLayeredPopoverDirection)direction;

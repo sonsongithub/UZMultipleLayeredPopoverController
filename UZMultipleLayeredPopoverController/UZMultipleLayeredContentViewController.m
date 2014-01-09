@@ -9,6 +9,7 @@
 #import "UZMultipleLayeredContentViewController.h"
 
 #import "UZMultipleLayeredPopoverBaseView.h"
+#import "UZMultipleLayeredPopoverTouchDummyView.h"
 
 CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	CGSize popoverSize = contentSize;
@@ -16,26 +17,6 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	popoverSize.height += ([UZMultipleLayeredContentViewController contentEdgeInsets].top + [UZMultipleLayeredContentViewController contentEdgeInsets].bottom);
 	return popoverSize;
 }
-
-@class UZMultipleLayeredPopoverTouchDummyView;
-
-@protocol UZMultipleLayeredPopoverTouchDummyViewDelegate <NSObject>
-
-- (void)dummyViewDidTouch:(UZMultipleLayeredPopoverTouchDummyView*)view;
-
-@end
-
-@interface UZMultipleLayeredPopoverTouchDummyView : UIView
-@property (nonatomic, assign) id <UZMultipleLayeredPopoverTouchDummyViewDelegate> delegate;
-@end
-
-@implementation UZMultipleLayeredPopoverTouchDummyView
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	[self.delegate dummyViewDidTouch:self];
-}
-
-@end
 
 @interface UZMultipleLayeredContentViewController() <UZMultipleLayeredPopoverTouchDummyViewDelegate> {
 	UZMultipleLayeredPopoverTouchDummyView *_dummyView;
@@ -104,9 +85,15 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	}
 	else {
 		[_dummyView removeFromSuperview];
-		_dummyView = [[UZMultipleLayeredPopoverTouchDummyView alloc] initWithFrame:CGRectMake(0, 0, _popoverSize.width, _popoverSize.height)];
+		CGRect frame = CGRectMake(
+								  [UZMultipleLayeredContentViewController contentEdgeInsets].left,
+								  [UZMultipleLayeredContentViewController contentEdgeInsets].top,
+								  _popoverSize.width - [UZMultipleLayeredContentViewController contentEdgeInsets].left - [UZMultipleLayeredContentViewController contentEdgeInsets].right,
+								  _popoverSize.height - [UZMultipleLayeredContentViewController contentEdgeInsets].top - [UZMultipleLayeredContentViewController contentEdgeInsets].bottom
+								  );
+		_dummyView = [[UZMultipleLayeredPopoverTouchDummyView alloc] initWithFrame:frame];
 		_dummyView.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.4];
-		_dummyView.backgroundColor = [UIColor clearColor];
+		//_dummyView.backgroundColor = [UIColor clearColor];
 		_dummyView.delegate = self;
 		self.view.alpha = 0.5;
 	}

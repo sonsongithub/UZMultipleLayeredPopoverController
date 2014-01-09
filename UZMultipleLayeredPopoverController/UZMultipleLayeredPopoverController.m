@@ -9,6 +9,7 @@
 #import "UZMultipleLayeredPopoverController.h"
 
 #import "UZMultipleLayeredContentViewController.h"
+#import "UZMultipleLayeredPopoverTouchDummyView.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -31,9 +32,12 @@
 
 @end
 
-@implementation UZMultipleLayeredPopoverController
+@implementation UZMultipleLayeredPopoverController 
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+}
+
+- (void)dummyViewDidTouch:(UZMultipleLayeredPopoverTouchDummyView*)view {
 	DNSLogMethod
 	[self.view removeFromSuperview];
 	for (UIViewController *vc in _layeredControllers) {
@@ -42,6 +46,8 @@
 	}
 	[_layeredControllers removeAllObjects];
 	[self removeFromParentViewController];
+	[_dummyView removeFromSuperview];
+	_dummyView = nil;
 }
 
 - (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize {
@@ -257,8 +263,12 @@
 - (void)presentFromRect:(CGRect)fromRect inViewController:(UIViewController*)inViewController direction:(UZMultipleLayeredPopoverDirection)direction {
 	_inViewController = inViewController;
 	[_inViewController addChildViewController:self];
-	[_inViewController.view addSubview:self.view];
 	self.view.frame = _inViewController.view.bounds;
+	_dummyView = [[UZMultipleLayeredPopoverTouchDummyView alloc] initWithFrame:_inViewController.view.bounds];
+	_dummyView.backgroundColor = [UIColor clearColor];
+	_dummyView.delegate = self;
+	[self.view addSubview:_dummyView];
+	[_inViewController.view addSubview:self.view];
 	
 	[self presentLastChildViewControllerFromRect:fromRect inView:inViewController.view direction:direction];
 }
