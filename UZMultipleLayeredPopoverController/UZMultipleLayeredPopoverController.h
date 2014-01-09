@@ -18,6 +18,7 @@ typedef enum _UZMultipleLayeredPopoverDirection {
 }UZMultipleLayeredPopoverDirection;
 
 @class UZMultipleLayeredPopoverController;
+@class UZMultipleLayeredContentViewController;
 
 @interface UIViewController (UZMultipleLayeredPopoverController)
 - (UZMultipleLayeredPopoverController*)parentMultipleLayeredPopoverController;
@@ -30,4 +31,5 @@ typedef enum _UZMultipleLayeredPopoverDirection {
 - (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize;
 - (void)presentFromRect:(CGRect)fromRect inViewController:(UIViewController*)inViewController direction:(UZMultipleLayeredPopoverDirection)direction;
 - (void)presentViewController:(UIViewController *)viewControllerToPresent fromRect:(CGRect)fromRect inView:(UIView*)inView contentSize:(CGSize)contentSize direction:(UZMultipleLayeredPopoverDirection)direction;
+- (void)removeChildViewControllersToPopoverContentViewController:(UZMultipleLayeredContentViewController*)contentViewController;
 @end

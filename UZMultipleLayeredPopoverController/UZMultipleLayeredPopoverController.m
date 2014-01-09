@@ -225,15 +225,33 @@
 		contentViewController.baseView.popoverArrowOffset = popoverArrowOffsets[saved];
 		popoverRect = popoverRects[saved];
 	}
+	
+	for (UZMultipleLayeredContentViewController *vc in _layeredControllers) {
+		if (vc != contentViewController)
+			[vc setActive:NO];
+	}
+	
 	[self addChildViewController:contentViewController];
 	[self.view addSubview:contentViewController.view];
 	contentViewController.view.frame = popoverRect;
+	[contentViewController setActive:YES];
+	[contentViewController updateSubviews];
 }
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent fromRect:(CGRect)fromRect inView:(UIView*)inView contentSize:(CGSize)contentSize direction:(UZMultipleLayeredPopoverDirection)direction {
 	UZMultipleLayeredContentViewController *viewController = [[UZMultipleLayeredContentViewController alloc] initWithContentViewController:viewControllerToPresent contentSize:contentSize];
 	[_layeredControllers addObject:viewController];
 	[self presentLastChildViewControllerFromRect:fromRect inView:inView direction:direction];
+}
+
+- (void)removeChildViewControllersToPopoverContentViewController:(UZMultipleLayeredContentViewController*)contentViewController {
+	DNSLogMethod
+	for (UIViewController *vc in [_layeredControllers reverseObjectEnumerator]) {
+		if (vc == contentViewController)
+			break;
+		[vc removeFromParentViewController];
+		[vc.view removeFromSuperview];
+	}
 }
 
 - (void)presentFromRect:(CGRect)fromRect inViewController:(UIViewController*)inViewController direction:(UZMultipleLayeredPopoverDirection)direction {

@@ -17,10 +17,37 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	return popoverSize;
 }
 
-@interface UZMultipleLayeredContentViewController ()
+@class UZMultipleLayeredPopoverTouchDummyView;
+
+@protocol UZMultipleLayeredPopoverTouchDummyViewDelegate <NSObject>
+
+- (void)dummyViewDidTouch:(UZMultipleLayeredPopoverTouchDummyView*)view;
+
+@end
+
+@interface UZMultipleLayeredPopoverTouchDummyView : UIView
+@property (nonatomic, assign) id <UZMultipleLayeredPopoverTouchDummyViewDelegate> delegate;
+@end
+
+@implementation UZMultipleLayeredPopoverTouchDummyView
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	[self.delegate dummyViewDidTouch:self];
+}
+
+@end
+
+@interface UZMultipleLayeredContentViewController() <UZMultipleLayeredPopoverTouchDummyViewDelegate> {
+	UZMultipleLayeredPopoverTouchDummyView *_dummyView;
+}
 @end
 
 @implementation UZMultipleLayeredContentViewController
+
+- (void)dummyViewDidTouch:(UZMultipleLayeredPopoverTouchDummyView*)view {
+	[(UZMultipleLayeredPopoverController*)self.parentViewController removeChildViewControllersToPopoverContentViewController:self];
+	[self setActive:YES];
+}
 
 - (void)dealloc {
     DNSLogMethod
@@ -34,6 +61,7 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	DNSLogMethod
 	self = [super init];
 	if (self) {
+		
 		_baseView = [[UZMultipleLayeredPopoverBaseView alloc] initWithFrame:CGRectMake(0, 0, _popoverSize.width, _popoverSize.height)];
 		[self.view addSubview:_baseView];
 		[self.view sendSubviewToBack:_baseView];
@@ -50,6 +78,7 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 		[self.view addSubview:contentViewController.view];
 		
 		[self updateSubviews];
+		[self.view bringSubviewToFront:_dummyView];
 	}
 	return self;
 }
@@ -67,12 +96,30 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	[_baseView setNeedsDisplay];
 }
 
+- (void)setActive:(BOOL)isActive {
+	if (isActive) {
+		[_dummyView removeFromSuperview];
+		_dummyView = nil;
+		self.view.alpha = 1;
+	}
+	else {
+		[_dummyView removeFromSuperview];
+		_dummyView = [[UZMultipleLayeredPopoverTouchDummyView alloc] initWithFrame:CGRectMake(0, 0, _popoverSize.width, _popoverSize.height)];
+		_dummyView.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.4];
+		_dummyView.backgroundColor = [UIColor clearColor];
+		_dummyView.delegate = self;
+		self.view.alpha = 0.5;
+	}
+	[self.view addSubview:_dummyView];
+}
+
 - (void)updateSubviews {
 	_popoverSize = UZMultipleLayeredPopoverSizeFromContentSize(_contentSize);
 	CGRect childViewControllerFrame = CGRectMake([UZMultipleLayeredContentViewController contentEdgeInsets].left, [UZMultipleLayeredContentViewController contentEdgeInsets].top, _contentSize.width, _contentSize.height);
 	_contentViewController.view.frame = childViewControllerFrame;
 	_baseView.frame = CGRectMake(0, 0, _popoverSize.width, _popoverSize.height);
 	_baseView.contentEdgeInsets = [UZMultipleLayeredContentViewController contentEdgeInsets];
+	_dummyView.frame = _baseView.frame;
 }
 
 @end
