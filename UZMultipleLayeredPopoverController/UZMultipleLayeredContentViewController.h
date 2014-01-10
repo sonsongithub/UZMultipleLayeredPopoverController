@@ -33,5 +33,6 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize);
 @property (nonatomic, readonly) UZMultipleLayeredPopoverBaseView *baseView;
 @property (nonatomic, assign) UZMultipleLayeredPopoverDirection direction;
 - (void)updateSubviews;
+- (CGRect)contentFrame;
 
 @end

@@ -38,6 +38,11 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	return UIEdgeInsetsMake(UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin);
 }
 
+- (CGRect)contentFrame {
+	UIEdgeInsets inverseInsets = UIEdgeInsetsMake(UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin);
+	return UIEdgeInsetsInsetRect(self.view.frame, inverseInsets);
+}
+
 - (id)initWithContentViewController:(UIViewController*)contentViewController contentSize:(CGSize)contentSize {
 	if ([contentViewController isKindOfClass:[UZMultipleLayeredPopoverController class]]) {
 		[NSException raise:@"com.sonson.UZMultipleLayeredContentViewController" format:@"You can not set a UZMultipleLayeredPopoverController object as the view controller on UZMultipleLayeredContentViewController objects."];
@@ -90,23 +95,12 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 
 - (void)setActive:(BOOL)isActive {
 	if (isActive) {
-		[_dummyView removeFromSuperview];
-		_dummyView = nil;
 		self.view.alpha = 1;
+		self.view.userInteractionEnabled = YES;
 	}
 	else {
-		[_dummyView removeFromSuperview];
-		CGRect frame = CGRectMake(
-								  [UZMultipleLayeredContentViewController contentEdgeInsets].left,
-								  [UZMultipleLayeredContentViewController contentEdgeInsets].top,
-								  _popoverSize.width - [UZMultipleLayeredContentViewController contentEdgeInsets].left - [UZMultipleLayeredContentViewController contentEdgeInsets].right,
-								  _popoverSize.height - [UZMultipleLayeredContentViewController contentEdgeInsets].top - [UZMultipleLayeredContentViewController contentEdgeInsets].bottom
-								  );
-		_dummyView = [[UZMultipleLayeredPopoverTouchDummyView alloc] initWithFrame:frame];
-		//_dummyView.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.4];
-		_dummyView.backgroundColor = [UIColor clearColor];
-		_dummyView.delegate = self;
 		self.view.alpha = 0.5;
+		self.view.userInteractionEnabled = NO;
 	}
 	[self.view addSubview:_dummyView];
 }
