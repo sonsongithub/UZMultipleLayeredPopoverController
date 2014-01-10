@@ -9,7 +9,6 @@
 #import "UZMultipleLayeredContentViewController.h"
 
 #import "UZMultipleLayeredPopoverBaseView.h"
-#import "UZMultipleLayeredPopoverTouchDummyView.h"
 
 CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	CGSize popoverSize = contentSize;
@@ -18,17 +17,11 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	return popoverSize;
 }
 
-@interface UZMultipleLayeredContentViewController() <UZMultipleLayeredPopoverTouchDummyViewDelegate> {
-	UZMultipleLayeredPopoverTouchDummyView *_dummyView;
+@interface UZMultipleLayeredContentViewController() {
 }
 @end
 
 @implementation UZMultipleLayeredContentViewController
-
-- (void)dummyViewDidTouch:(UZMultipleLayeredPopoverTouchDummyView*)view {
-	[(UZMultipleLayeredPopoverController*)self.parentViewController removeChildViewControllersToPopoverContentViewController:self];
-	[self setActive:YES];
-}
 
 - (void)dealloc {
     DNSLogMethod
@@ -75,7 +68,6 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 		[self.view addSubview:contentViewController.view];
 		
 		[self updateSubviews];
-		[self.view bringSubviewToFront:_dummyView];
 	}
 	return self;
 }
@@ -102,7 +94,6 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 		self.view.alpha = 0.5;
 		self.view.userInteractionEnabled = NO;
 	}
-	[self.view addSubview:_dummyView];
 }
 
 - (void)updateSubviews {
@@ -111,7 +102,6 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	_contentViewController.view.frame = childViewControllerFrame;
 	_baseView.frame = CGRectMake(0, 0, _popoverSize.width, _popoverSize.height);
 	_baseView.contentEdgeInsets = [UZMultipleLayeredContentViewController contentEdgeInsets];
-	_dummyView.frame = _baseView.frame;
 }
 
 @end

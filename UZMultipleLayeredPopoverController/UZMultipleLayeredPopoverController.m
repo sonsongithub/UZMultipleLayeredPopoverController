@@ -9,7 +9,6 @@
 #import "UZMultipleLayeredPopoverController.h"
 
 #import "UZMultipleLayeredContentViewController.h"
-#import "UZMultipleLayeredPopoverTouchDummyView.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -41,8 +40,6 @@
 	
 	UZMultipleLayeredContentViewController *cvc = nil;
 	for (UZMultipleLayeredContentViewController *vc in [_layeredControllers reverseObjectEnumerator]) {
-		DNSLogRect(vc.contentFrame);
-		DNSLogRect(vc.view.frame);
 		if (CGRectContainsPoint(vc.contentFrame, touchPoint)) {
 			cvc = vc;
 			break;
@@ -62,8 +59,6 @@
 	}
 	[_layeredControllers removeAllObjects];
 	[self removeFromParentViewController];
-	[_dummyView removeFromSuperview];
-	_dummyView = nil;
 }
 
 - (void)dismissTopViewController {
@@ -93,10 +88,6 @@
 		UZMultipleLayeredContentViewController *contentViewController = [_layeredControllers lastObject];
 		[contentViewController setActive:YES];
 	}
-}
-
-- (void)dummyViewDidTouch:(UZMultipleLayeredPopoverTouchDummyView*)view {
-//	[self dismiss];
 }
 
 - (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize {
@@ -293,11 +284,13 @@
 		popoverRect = popoverRects[saved];
 	}
 	
+	// deactivate view controllers without the top level view controller.
 	for (UZMultipleLayeredContentViewController *vc in _layeredControllers) {
 		if (vc != contentViewController)
 			[vc setActive:NO];
 	}
 	
+	// add the new top level view controller
 	[self addChildViewController:contentViewController];
 	[self.view addSubview:contentViewController.view];
 	contentViewController.view.frame = popoverRect;
@@ -315,10 +308,6 @@
 	_inViewController = inViewController;
 	[_inViewController addChildViewController:self];
 	self.view.frame = _inViewController.view.bounds;
-//	_dummyView = [[UZMultipleLayeredPopoverTouchDummyView alloc] initWithFrame:_inViewController.view.bounds];
-//	_dummyView.backgroundColor = [UIColor clearColor];
-//	_dummyView.delegate = self;
-//	[self.view addSubview:_dummyView];
 	[_inViewController.view addSubview:self.view];
 	
 	[self presentLastChildViewControllerFromRect:fromRect inView:inViewController.view direction:direction];
