@@ -39,7 +39,18 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 }
 
 - (id)initWithContentViewController:(UIViewController*)contentViewController contentSize:(CGSize)contentSize {
-	DNSLogMethod
+	if ([contentViewController isKindOfClass:[UZMultipleLayeredPopoverController class]]) {
+		[NSException raise:@"com.sonson.UZMultipleLayeredContentViewController" format:@"You can not set a UZMultipleLayeredPopoverController object as the view controller on UZMultipleLayeredContentViewController objects."];
+		return nil;
+	}
+	if ([contentViewController isKindOfClass:[UZMultipleLayeredContentViewController class]]) {
+		[NSException raise:@"com.sonson.UZMultipleLayeredContentViewController" format:@"You can not set a UZMultipleLayeredContentViewController object as the view controller on UZMultipleLayeredContentViewController objects."];
+		return nil;
+	}
+	if (!contentViewController) {
+		[NSException raise:@"com.sonson.UZMultipleLayeredContentViewController" format:@"You have to set any object as the view controller on UZMultipleLayeredContentViewController objects."];
+		return nil;
+	}
 	self = [super init];
 	if (self) {
 		

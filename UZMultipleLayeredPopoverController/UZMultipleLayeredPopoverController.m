@@ -79,6 +79,18 @@
 }
 
 - (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize {
+	if ([rootViewController isKindOfClass:[UZMultipleLayeredPopoverController class]]) {
+		[NSException raise:@"com.sonson.UZMultipleLayeredPopoverController" format:@"You can not set a UZMultipleLayeredPopoverController object as the view controller on UZMultipleLayeredPopoverController objects."];
+		return nil;
+	}
+	if ([rootViewController isKindOfClass:[UZMultipleLayeredContentViewController class]]) {
+		[NSException raise:@"com.sonson.UZMultipleLayeredPopoverController" format:@"You can not set a UZMultipleLayeredContentViewController object as the view controller on UZMultipleLayeredPopoverController objects."];
+		return nil;
+	}
+	if (!rootViewController) {
+		[NSException raise:@"com.sonson.UZMultipleLayeredPopoverController" format:@"You have to set any object as the view controller on UZMultipleLayeredPopoverController objects."];
+		return nil;
+	}
 	self = [super init];
 	if (self) {
 		_layeredControllers = [NSMutableArray array];
