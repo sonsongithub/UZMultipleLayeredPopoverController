@@ -43,9 +43,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		14F1F821187FE23A00BB9B0F /* UZMultipleLayeredPopoverController-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UZMultipleLayeredPopoverController-Prefix.pch"; sourceTree = "<group>"; };
 		14FABC321874C00800121BF4 /* libUZMultipleLayeredPopoverController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUZMultipleLayeredPopoverController.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		14FABC351874C00800121BF4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		14FABC391874C00800121BF4 /* UZMultipleLayeredPopoverController-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UZMultipleLayeredPopoverController-Prefix.pch"; sourceTree = "<group>"; };
 		14FABC3A1874C00800121BF4 /* UZMultipleLayeredPopoverController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UZMultipleLayeredPopoverController.h; sourceTree = "<group>"; };
 		14FABC3C1874C00800121BF4 /* UZMultipleLayeredPopoverController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UZMultipleLayeredPopoverController.m; sourceTree = "<group>"; };
 		14FABC431874C00800121BF4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -127,7 +127,6 @@
 		14FABC371874C00800121BF4 /* UZMultipleLayeredPopoverController */ = {
 			isa = PBXGroup;
 			children = (
-				14FABC391874C00800121BF4 /* UZMultipleLayeredPopoverController-Prefix.pch */,
 				14FABC3A1874C00800121BF4 /* UZMultipleLayeredPopoverController.h */,
 				14FABC3C1874C00800121BF4 /* UZMultipleLayeredPopoverController.m */,
 				14FABCE11874C50200121BF4 /* UZMultipleLayeredContentViewController.h */,
@@ -141,6 +140,7 @@
 		14FABCB11874C09700121BF4 /* UZMultipleLayeredPopoverControllerSample */ = {
 			isa = PBXGroup;
 			children = (
+				14F1F821187FE23A00BB9B0F /* UZMultipleLayeredPopoverController-Prefix.pch */,
 				14FABCBA1874C09700121BF4 /* AppDelegate.h */,
 				14FABCBB1874C09700121BF4 /* AppDelegate.m */,
 				14FABCBD1874C09700121BF4 /* Main_iPhone.storyboard */,
@@ -413,7 +413,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "UZMultipleLayeredPopoverController/UZMultipleLayeredPopoverController-Prefix.pch";
+				GCC_PREFIX_HEADER = "UZMultipleLayeredPopoverControllerSample/UZMultipleLayeredPopoverController-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -440,7 +440,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "UZMultipleLayeredPopoverController/UZMultipleLayeredPopoverController-Prefix.pch";
+				GCC_PREFIX_HEADER = "UZMultipleLayeredPopoverControllerSample/UZMultipleLayeredPopoverController-Prefix.pch";
 				INFOPLIST_FILE = "UZMultipleLayeredPopoverControllerSample/UZMultipleLayeredPopoverControllerSample-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "08F465F0-6BF4-46A7-9A39-973363FCE296";

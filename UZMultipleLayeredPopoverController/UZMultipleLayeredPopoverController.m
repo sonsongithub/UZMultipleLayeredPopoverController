@@ -15,6 +15,17 @@
 #define CGRectGetCenter(p)	CGPointMake(CGRectGetMidX(p), CGRectGetMidY(p))
 #define CGSizeGetArea(p) p.width * p.height
 
+@interface UZMultipleLayeredPopoverController() {
+	UIViewController *_inViewController;
+	NSMutableArray *_layeredControllers;
+}
+- (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize;
+- (void)presentFromRect:(CGRect)fromRect inViewController:(UIViewController*)inViewController direction:(UZMultipleLayeredPopoverDirection)direction;
+- (void)presentViewController:(UIViewController *)viewControllerToPresent fromRect:(CGRect)fromRect inView:(UIView*)inView contentSize:(CGSize)contentSize direction:(UZMultipleLayeredPopoverDirection)direction;
+- (void)dismiss;
+- (void)dismissTopViewController;
+@end
+
 @implementation UIViewController (UZMultipleLayeredPopoverController)
 
 - (UZMultipleLayeredPopoverController*)parentMultipleLayeredPopoverController {
@@ -27,6 +38,30 @@
 			return nil;
 	}
 	return nil;
+}
+
+- (void)dismissCurrentPopoverController {
+	UZMultipleLayeredPopoverController *con = [self parentMultipleLayeredPopoverController];
+	[con dismissTopViewController];
+}
+
+- (void)dismissMultipleLayeredPopoverController {
+	UZMultipleLayeredPopoverController *con = [self parentMultipleLayeredPopoverController];
+	[con dismiss];
+}
+
+- (void)presentMultipleLayeredPopoverWithViewController:(UIViewController*)viewController contentSize:(CGSize)contentSize fromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction {
+	
+	CGRect frame = [self.view convertRect:fromRect fromView:inView];
+	
+	UZMultipleLayeredPopoverController *con = [self parentMultipleLayeredPopoverController];
+	if (con) {
+		[con presentViewController:viewController fromRect:frame inView:self.view contentSize:contentSize direction:direction];
+	}
+	else {
+		con = [[UZMultipleLayeredPopoverController alloc] initWithRootViewController:viewController contentSize:contentSize];
+		[con presentFromRect:frame inViewController:self direction:direction];
+	}
 }
 
 @end
@@ -92,15 +127,15 @@
 
 - (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize {
 	if ([rootViewController isKindOfClass:[UZMultipleLayeredPopoverController class]]) {
-		[NSException raise:@"com.sonson.UZMultipleLayeredPopoverController" format:@"You can not set a UZMultipleLayeredPopoverController object as the view controller on UZMultipleLayeredPopoverController objects."];
+		NSLog(@"You can not set a UZMultipleLayeredPopoverController object as the view controller on UZMultipleLayeredPopoverController objects.");
 		return nil;
 	}
 	if ([rootViewController isKindOfClass:[UZMultipleLayeredContentViewController class]]) {
-		[NSException raise:@"com.sonson.UZMultipleLayeredPopoverController" format:@"You can not set a UZMultipleLayeredContentViewController object as the view controller on UZMultipleLayeredPopoverController objects."];
+		NSLog(@"You can not set a UZMultipleLayeredContentViewController object as the view controller on UZMultipleLayeredPopoverController objects.");
 		return nil;
 	}
 	if (!rootViewController) {
-		[NSException raise:@"com.sonson.UZMultipleLayeredPopoverController" format:@"You have to set any object as the view controller on UZMultipleLayeredPopoverController objects."];
+		NSLog(@"You have to set any object as the view controller on UZMultipleLayeredPopoverController objects.");
 		return nil;
 	}
 	self = [super init];

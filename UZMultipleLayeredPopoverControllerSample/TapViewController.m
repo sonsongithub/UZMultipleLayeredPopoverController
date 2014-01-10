@@ -40,20 +40,21 @@
 }
 
 - (IBAction)closeThis:(id)sender {
-	UZMultipleLayeredPopoverController *pop = [self parentMultipleLayeredPopoverController];
-	[pop dismissTopViewController];
+	[self dismissCurrentPopoverController];
 }
 
 - (IBAction)closeAll:(id)sender {
-	UZMultipleLayeredPopoverController *pop = [self parentMultipleLayeredPopoverController];
-	[pop dismiss];
+	[self dismissMultipleLayeredPopoverController];
 }
 
 - (void)showAtButtonFrame:(CGRect)buttonFrame direction:(UZMultipleLayeredPopoverDirection)direction {
-	UZMultipleLayeredPopoverController *pop = [self parentMultipleLayeredPopoverController];
 	UIApplication *application = [UIApplication sharedApplication];
 	UIViewController *vc = [application.keyWindow.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"TapViewController"];
-	[pop presentViewController:vc fromRect:buttonFrame inView:self.view contentSize:CGSizeMake(320, 480) direction:direction];
+	[self presentMultipleLayeredPopoverWithViewController:vc
+											  contentSize:CGSizeMake(320, 480)
+												 fromRect:buttonFrame
+												   inView:self.view
+												direction:direction];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

@@ -19,11 +19,11 @@
 - (IBAction)button:(id)sender {
 	UIButton *button = sender;
 	id viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationController"];
-	
-	UZMultipleLayeredPopoverDirection direction = UZMultipleLayeredPopoverAnyDirection;
-	UZMultipleLayeredPopoverController *controller = [[UZMultipleLayeredPopoverController alloc] initWithRootViewController:viewController contentSize:CGSizeMake(320, 480)];
-	
-	[controller presentFromRect:button.frame inViewController:self direction:direction];
+	[self presentMultipleLayeredPopoverWithViewController:viewController
+											  contentSize:CGSizeMake(320, 480)
+												 fromRect:button.frame
+												   inView:self.view
+												direction:UZMultipleLayeredPopoverAnyDirection];
 }
 
 @end
