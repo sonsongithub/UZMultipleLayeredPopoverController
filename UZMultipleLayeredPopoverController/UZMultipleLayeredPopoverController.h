@@ -10,11 +10,13 @@
 #import <UIKit/UIKit.h>
 
 typedef enum _UZMultipleLayeredPopoverDirection {
-	UZMultipleLayeredPopoverTopDirection	= 1,
-	UZMultipleLayeredPopoverBottomDirection = 1 << 1,
-	UZMultipleLayeredPopoverLeftDirection	= 1 << 2,
-	UZMultipleLayeredPopoverRightDirection	= 1 << 3,
-	UZMultipleLayeredPopoverAnyDirection	= (1 << 0) & (1 << 1) & (1 << 2) & (1 << 3)
+	UZMultipleLayeredPopoverTopDirection		= 1,
+	UZMultipleLayeredPopoverBottomDirection		= 1 << 1,
+	UZMultipleLayeredPopoverLeftDirection		= 1 << 2,
+	UZMultipleLayeredPopoverRightDirection		= 1 << 3,
+	UZMultipleLayeredPopoverAnyDirection		= (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3),
+	UZMultipleLayeredPopoverVerticalDirection	= (1 << 0) | (1 << 1),
+	UZMultipleLayeredPopoverHorizontalDirection	= (1 << 2) | (1 << 3)
 }UZMultipleLayeredPopoverDirection;
 
 @interface UIViewController (UZMultipleLayeredPopoverController)

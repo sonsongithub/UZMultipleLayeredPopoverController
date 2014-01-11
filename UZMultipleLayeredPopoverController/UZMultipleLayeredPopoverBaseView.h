@@ -14,8 +14,6 @@
 #define UZMultipleLayeredPopoverContentMargin	20
 #define UZMultipleLayeredPopoverArrowSize		10
 
-#define UZMultipleLayeredPopoverAnyDirection (UZMultipleLayeredPopoverTopDirection&UZMultipleLayeredPopoverBottomDirection&UZMultipleLayeredPopoverLeftDirection&UZMultipleLayeredPopoverRightDirection)
-
 @interface UZMultipleLayeredPopoverBaseView : UIView
 
 @property (nonatomic, assign) UIEdgeInsets contentEdgeInsets;

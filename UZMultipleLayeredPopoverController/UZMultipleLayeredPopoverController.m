@@ -274,7 +274,11 @@
 	CGSize contentSize = CGSizeZero;
 	CGRect popoverRect = CGRectZero;
 	float popoverArrowOffset = 0;
-	if (direction != UZMultipleLayeredPopoverAnyDirection) {
+	
+	if (!(direction & UZMultipleLayeredPopoverAnyDirection))
+		direction = UZMultipleLayeredPopoverAnyDirection;
+	
+	if (direction != UZMultipleLayeredPopoverAnyDirection && direction != UZMultipleLayeredPopoverVerticalDirection && direction != UZMultipleLayeredPopoverHorizontalDirection) {
 		[self popoverRectWithsSecifiedContentSize:contentViewController.contentSize
 								fromRectInPopover:fromRectInPopover
 										direction:direction
@@ -297,13 +301,20 @@
 			UZMultipleLayeredPopoverRightDirection,
 			UZMultipleLayeredPopoverLeftDirection
 		};
-		for (int i = 1; i < 4; i++) {
-			[self popoverRectWithsSecifiedContentSize:contentViewController.contentSize
-									fromRectInPopover:fromRectInPopover
-											direction:directions[i]
-										  popoverRect:&popoverRects[i]
-										  contentSize:&contentSizes[i]
-											   offset:&popoverArrowOffsets[i]];
+		for (int i = 0; i < 4; i++) {
+			if (directions[i] & direction) {
+				[self popoverRectWithsSecifiedContentSize:contentViewController.contentSize
+										fromRectInPopover:fromRectInPopover
+												direction:directions[i]
+											  popoverRect:&popoverRects[i]
+											  contentSize:&contentSizes[i]
+												   offset:&popoverArrowOffsets[i]];
+			}
+			else {
+				popoverArrowOffsets[i] = 0;
+				popoverRects[i] = CGRectZero;
+				contentSizes[i] = CGSizeZero;
+			}
 		}
 		int saved = 0;
 		float maxArea = CGSizeGetArea(contentSizes[0]);
