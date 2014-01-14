@@ -296,8 +296,8 @@
 		CGSize contentSizes[4];
 		float popoverArrowOffsets[4];
 		UZMultipleLayeredPopoverDirection directions[] = {
-			UZMultipleLayeredPopoverTopDirection,
 			UZMultipleLayeredPopoverBottomDirection,
+			UZMultipleLayeredPopoverTopDirection,
 			UZMultipleLayeredPopoverRightDirection,
 			UZMultipleLayeredPopoverLeftDirection
 		};
