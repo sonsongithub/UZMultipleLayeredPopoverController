@@ -30,45 +30,53 @@
 
 @implementation UIViewController (UZMultipleLayeredPopoverController)
 
-- (UZMultipleLayeredPopoverController*)parentMultipleLayeredPopoverController {
-	UIViewController *current = self.parentViewController;
+- (UIViewController*)rootViewController {
+	UIViewController *current = self;
 	while (1) {
+		if (current.parentViewController == nil)
+			return current;
 		current = current.parentViewController;
-		if ([current isKindOfClass:[UZMultipleLayeredPopoverController class]])
-			return (UZMultipleLayeredPopoverController*)current;
-		if (current == nil)
-			return nil;
 	}
 	return nil;
 }
 
+- (UIViewController*)targetViewController {
+	UIViewController *rootViewController = [self rootViewController];
+	for (id vc in [rootViewController childViewControllers]) {
+		if ([vc isKindOfClass:[UZMultipleLayeredPopoverController class]])
+			return (UZMultipleLayeredPopoverController*)vc;
+	}
+	return rootViewController;
+}
+
 - (void)dismissCurrentPopoverController {
-	UZMultipleLayeredPopoverController *con = [self parentMultipleLayeredPopoverController];
-	[con dismissTopViewController];
+	UIViewController *con = [self targetViewController];
+	if ([con isKindOfClass:[UZMultipleLayeredPopoverController class]])
+		[(UZMultipleLayeredPopoverController*)con dismissTopViewController];
 }
 
 - (void)dismissMultipleLayeredPopoverController {
-	UZMultipleLayeredPopoverController *con = [self parentMultipleLayeredPopoverController];
-	[con dismiss];
+	UIViewController *con = [self targetViewController];
+	if ([con isKindOfClass:[UZMultipleLayeredPopoverController class]])
+		[(UZMultipleLayeredPopoverController*)con dismiss];
 }
 
 - (void)presentMultipleLayeredPopoverWithViewController:(UIViewController*)viewController contentSize:(CGSize)contentSize fromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction {
 	
-	CGRect frame = [self.view convertRect:fromRect fromView:inView];
-	
-	UZMultipleLayeredPopoverController *con = [self parentMultipleLayeredPopoverController];
-	if (con) {
-		[con presentViewController:viewController fromRect:frame inView:self.view contentSize:contentSize direction:direction];
+	UIViewController *con = [self targetViewController];
+	CGRect frame = [con.view convertRect:fromRect fromView:inView];
+	if ([con isKindOfClass:[UZMultipleLayeredPopoverController class]]) {
+		[(UZMultipleLayeredPopoverController*)con presentViewController:viewController fromRect:frame inView:con.view contentSize:contentSize direction:direction];
 	}
 	else {
-		con = [[UZMultipleLayeredPopoverController alloc] initWithRootViewController:viewController contentSize:contentSize];
-		[con presentFromRect:frame inViewController:self direction:direction];
+		UZMultipleLayeredPopoverController *popoverController = [[UZMultipleLayeredPopoverController alloc] initWithRootViewController:viewController contentSize:contentSize];
+		[popoverController presentFromRect:frame inViewController:con direction:direction];
 	}
 }
 
 @end
 
-@implementation UZMultipleLayeredPopoverController 
+@implementation UZMultipleLayeredPopoverController
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	DNSLogMethod
@@ -186,7 +194,7 @@
 		if (popoverRect.origin.x < 0) {
 			popoverOffset = - (CGRectGetMidX(fromRectInPopover) - popoverRect.size.width/2);
 			popoverRect.origin.x = 0;
-
+			
 			// Adjust width when right edge goes over the parent view.
 			if (popoverRect.origin.x + popoverRect.size.width > self.view.frame.size.width) {
 				contentSize.width -= fabsf(popoverRect.origin.x + popoverRect.size.width - self.view.frame.size.width);
@@ -197,7 +205,7 @@
 		else if (popoverRect.origin.x + popoverRect.size.width > self.view.frame.size.width) {
 			popoverOffset = (self.view.frame.size.width - (CGRectGetMidX(fromRectInPopover) + popoverRect.size.width/2));
 			popoverRect.origin.x = (self.view.frame.size.width - popoverRect.size.width);
-
+			
 			// Adjust width when right edge goes over the parent view.
 			if (popoverRect.origin.x < 0) {
 				contentSize.width -= fabsf(popoverRect.origin.x);
@@ -232,7 +240,7 @@
 			}
 		}
 	}
-		
+	
 	if (direction == UZMultipleLayeredPopoverTopDirection) {
 		// Adjust height when bottom edge goes over the parent view.
 		if (popoverRect.origin.y + popoverRect.size.height > self.view.frame.size.height) {
