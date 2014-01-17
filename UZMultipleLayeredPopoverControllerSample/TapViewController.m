@@ -47,6 +47,16 @@
 	[self dismissMultipleLayeredPopoverController];
 }
 
+- (IBAction)vertical:(id)sender {
+	UIButton *button = sender;
+	[self showAtButtonFrame:button.frame direction:UZMultipleLayeredPopoverVerticalDirection];
+}
+
+- (IBAction)horizontal:(id)sender {
+	UIButton *button = sender;
+	[self showAtButtonFrame:button.frame direction:UZMultipleLayeredPopoverHorizontalDirection];
+}
+
 - (void)showAtButtonFrame:(CGRect)buttonFrame direction:(UZMultipleLayeredPopoverDirection)direction {
 	UIApplication *application = [UIApplication sharedApplication];
 	UIViewController *vc = [application.keyWindow.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"TapViewController"];

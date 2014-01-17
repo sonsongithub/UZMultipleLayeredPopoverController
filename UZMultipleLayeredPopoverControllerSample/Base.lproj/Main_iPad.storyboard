@@ -454,23 +454,47 @@
                                     <action selector="closeAll:" destination="Qg7-u4-5br" eventType="touchUpInside" id="AQc-S5-7s0"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xVp-t3-4kr">
+                                <rect key="frame" x="429" y="420" width="50" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="vertical">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="vertical:" destination="Qg7-u4-5br" eventType="touchUpInside" id="RtF-OO-X3U"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qdm-Z9-UKn">
+                                <rect key="frame" x="280" y="420" width="68" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="horizontal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="horizontal:" destination="Qg7-u4-5br" eventType="touchUpInside" id="P39-n6-Oqc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="AE9-pQ-PRK" firstAttribute="top" secondItem="Sgr-0r-B0R" secondAttribute="bottom" constant="15" id="06f-0Q-IpB"/>
                             <constraint firstAttribute="centerY" secondItem="VdS-AK-LCO" secondAttribute="centerY" id="0Yf-Pe-dJh"/>
+                            <constraint firstItem="xVp-t3-4kr" firstAttribute="leading" secondItem="7Ky-ce-5HD" secondAttribute="trailing" constant="30" id="2vH-zR-KAc"/>
                             <constraint firstAttribute="centerX" secondItem="7Ky-ce-5HD" secondAttribute="centerX" id="5JY-Lu-qcD"/>
                             <constraint firstAttribute="centerY" secondItem="K8b-KL-PpR" secondAttribute="centerY" id="8Nk-bN-g37"/>
                             <constraint firstItem="7Ky-ce-5HD" firstAttribute="top" secondItem="XIR-AD-QgB" secondAttribute="bottom" constant="15" id="BSH-2a-Owi"/>
                             <constraint firstItem="Sgr-0r-B0R" firstAttribute="top" secondItem="7Ky-ce-5HD" secondAttribute="bottom" constant="15" id="CgK-0q-Pkl"/>
+                            <constraint firstItem="7Ky-ce-5HD" firstAttribute="leading" secondItem="qdm-Z9-UKn" secondAttribute="trailing" constant="21" id="Dwu-WW-8gd"/>
                             <constraint firstItem="Sgr-0r-B0R" firstAttribute="leading" secondItem="VdS-AK-LCO" secondAttribute="trailing" constant="40" id="Eqc-VJ-MHV"/>
                             <constraint firstItem="K8b-KL-PpR" firstAttribute="leading" secondItem="Sgr-0r-B0R" secondAttribute="trailing" constant="40" id="JTf-xx-nJq"/>
                             <constraint firstAttribute="centerX" secondItem="XIR-AD-QgB" secondAttribute="centerX" id="OEU-3F-dNN"/>
+                            <constraint firstItem="K8b-KL-PpR" firstAttribute="top" secondItem="xVp-t3-4kr" secondAttribute="bottom" constant="15" id="UlO-6m-eMk"/>
                             <constraint firstAttribute="centerX" secondItem="7dl-ci-n79" secondAttribute="centerX" id="Xbg-4P-xCf"/>
                             <constraint firstItem="7dl-ci-n79" firstAttribute="top" secondItem="AE9-pQ-PRK" secondAttribute="bottom" constant="15" id="dsh-tZ-tAo"/>
                             <constraint firstAttribute="centerY" secondItem="Sgr-0r-B0R" secondAttribute="centerY" id="ijM-Z3-lIn"/>
                             <constraint firstAttribute="centerX" secondItem="AE9-pQ-PRK" secondAttribute="centerX" id="jh3-Qk-NHk"/>
                             <constraint firstAttribute="centerX" secondItem="Sgr-0r-B0R" secondAttribute="centerX" id="mH8-eC-Lzq"/>
+                            <constraint firstItem="VdS-AK-LCO" firstAttribute="top" secondItem="qdm-Z9-UKn" secondAttribute="bottom" constant="15" id="ngt-4J-BG0"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
