@@ -6,7 +6,7 @@ Custom popover controller for iOS7
 - UZMultipleLayeredPopoverController class implements the popover controller like UIPopoverController.
 - The class supports the display of UIViewController instance on the popover like using UIPopoverController objects.
 
-[![image](https://raw.github.com/sonsongithub/UZMultipleLayeredPopoverController/master/screenshot/UZTextView.gif)](https://www.youtube.com/watch?v=ePbiWwZu3w4)
+[![image](https://raw.github.com/sonsongithub/UZMultipleLayeredPopoverController/master/screenshot/UZMultipleLayeredPopoverController.gif)](https://www.youtube.com/watch?v=ePbiWwZu3w4)
 
 ###How to build
 - Not yet.
