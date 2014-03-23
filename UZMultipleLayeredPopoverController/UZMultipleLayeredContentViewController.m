@@ -9,6 +9,7 @@
 #import "UZMultipleLayeredContentViewController.h"
 
 #import "UZMultipleLayeredPopoverBaseView.h"
+#import "UZMultipleLayeredPopoverBackView.h"
 
 CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	CGSize popoverSize = contentSize;
@@ -51,6 +52,7 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	}
 	self = [super init];
 	if (self) {
+		self.view = [[UZMultipleLayeredPopoverBackView alloc] initWithFrame:CGRectZero];
 		
 		_baseView = [[UZMultipleLayeredPopoverBaseView alloc] initWithFrame:CGRectMake(0, 0, _popoverSize.width, _popoverSize.height)];
 		[self.view addSubview:_baseView];
@@ -86,6 +88,7 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 }
 
 - (void)setActive:(BOOL)isActive {
+	DNSLog(@"%@", self.parentViewController);
 	if (isActive) {
 		self.view.alpha = 1;
 		self.view.userInteractionEnabled = YES;

@@ -23,7 +23,9 @@
 											  contentSize:CGSizeMake(320, 480)
 												 fromRect:button.frame
 												   inView:self.view
-												direction:UZMultipleLayeredPopoverAnyDirection];
+												direction:UZMultipleLayeredPopoverAnyDirection
+										 passthroughViews:@[button]];
+
 }
 
 @end

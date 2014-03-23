@@ -9,7 +9,7 @@
 #import "UZMultipleLayeredPopoverController.h"
 
 #import "UZMultipleLayeredContentViewController.h"
-
+#import "UZMultipleLayeredPopoverBackView.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define CGRectGetCenter(p)	CGPointMake(CGRectGetMidX(p), CGRectGetMidY(p))
@@ -21,15 +21,20 @@
 	UIViewController *_inViewController;
 	NSMutableArray *_layeredControllers;
 }
-- (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize;
-- (void)presentFromRect:(CGRect)fromRect inViewController:(UIViewController*)inViewController direction:(UZMultipleLayeredPopoverDirection)direction;
-- (void)presentViewController:(UIViewController *)viewControllerToPresent fromRect:(CGRect)fromRect inView:(UIView*)inView contentSize:(CGSize)contentSize direction:(UZMultipleLayeredPopoverDirection)direction;
+- (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize passthroughViews:(NSArray*)passthroughViews;
+- (void)presentFromRect:(CGRect)fromRect inViewController:(UIViewController*)inViewController direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passthroughViews;
+- (void)presentViewController:(UIViewController *)viewControllerToPresent fromRect:(CGRect)fromRect inView:(UIView*)inView contentSize:(CGSize)contentSize direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passthroughViews;
 - (void)dismiss;
 - (void)dismissTopViewController;
 @end
 
 @implementation UIViewController (UZMultipleLayeredPopoverController)
 
+/**
+ * Returns the bottom of view controller's hierarchy parsing each view controllers' parents.
+ * Typically, this method returns same object is as same as one UIWindow's keyWindow method returns.
+ * \return UIViewController object which is the bottom of view controller's hierarchy.
+ **/
 - (UIViewController*)rootViewController {
 	UIViewController *current = self;
 	while (1) {
@@ -66,11 +71,24 @@
 	UIViewController *con = [self targetViewController];
 	CGRect frame = [con.view convertRect:fromRect fromView:inView];
 	if ([con isKindOfClass:[UZMultipleLayeredPopoverController class]]) {
-		[(UZMultipleLayeredPopoverController*)con presentViewController:viewController fromRect:frame inView:con.view contentSize:contentSize direction:direction];
+		[(UZMultipleLayeredPopoverController*)con presentViewController:viewController fromRect:frame inView:con.view contentSize:contentSize direction:direction passthroughViews:nil];
 	}
 	else {
-		UZMultipleLayeredPopoverController *popoverController = [[UZMultipleLayeredPopoverController alloc] initWithRootViewController:viewController contentSize:contentSize];
-		[popoverController presentFromRect:frame inViewController:con direction:direction];
+		UZMultipleLayeredPopoverController *popoverController = [[UZMultipleLayeredPopoverController alloc] initWithRootViewController:viewController contentSize:contentSize passthroughViews:nil];
+		[popoverController presentFromRect:frame inViewController:con direction:direction passthroughViews:nil];
+	}
+}
+
+- (void)presentMultipleLayeredPopoverWithViewController:(UIViewController*)viewController contentSize:(CGSize)contentSize fromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passthroughViews {
+	
+	UIViewController *con = [self targetViewController];
+	CGRect frame = [con.view convertRect:fromRect fromView:inView];
+	if ([con isKindOfClass:[UZMultipleLayeredPopoverController class]]) {
+		[(UZMultipleLayeredPopoverController*)con presentViewController:viewController fromRect:frame inView:con.view contentSize:contentSize direction:direction passthroughViews:passthroughViews];
+	}
+	else {
+		UZMultipleLayeredPopoverController *popoverController = [[UZMultipleLayeredPopoverController alloc] initWithRootViewController:viewController contentSize:contentSize passthroughViews:passthroughViews];
+		[popoverController presentFromRect:frame inViewController:con direction:direction passthroughViews:passthroughViews];
 	}
 }
 
@@ -135,7 +153,7 @@
 	}
 }
 
-- (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize {
+- (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize passthroughViews:(NSArray*)passthroughViews {
 	if ([rootViewController isKindOfClass:[UZMultipleLayeredPopoverController class]]) {
 		NSLog(@"You can not set a UZMultipleLayeredPopoverController object as the view controller on UZMultipleLayeredPopoverController objects.");
 		return nil;
@@ -150,6 +168,9 @@
 	}
 	self = [super init];
 	if (self) {
+		UZMultipleLayeredPopoverBackView *backView = [[UZMultipleLayeredPopoverBackView alloc] initWithFrame:CGRectZero];
+		backView.passthroughViews = passthroughViews;
+		self.view = backView;
 		_layeredControllers = [NSMutableArray array];
 		UZMultipleLayeredContentViewController *object = [[UZMultipleLayeredContentViewController alloc] initWithContentViewController:rootViewController contentSize:contentSize];
 		
@@ -276,7 +297,7 @@
 	*p3 = floorf(popoverOffset);
 }
 
-- (void)presentLastChildViewControllerFromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction {
+- (void)presentLastLayeredViewControllerFromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction {
 	UZMultipleLayeredContentViewController *contentViewController = [_layeredControllers lastObject];
 	CGRect fromRectInPopover = [self.view convertRect:fromRect fromView:inView];
 	CGSize contentSize = CGSizeZero;
@@ -353,19 +374,19 @@
 	[contentViewController updateSubviews];
 }
 
-- (void)presentViewController:(UIViewController *)viewControllerToPresent fromRect:(CGRect)fromRect inView:(UIView*)inView contentSize:(CGSize)contentSize direction:(UZMultipleLayeredPopoverDirection)direction {
+- (void)presentViewController:(UIViewController *)viewControllerToPresent fromRect:(CGRect)fromRect inView:(UIView*)inView contentSize:(CGSize)contentSize direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passthroughViews {
 	UZMultipleLayeredContentViewController *viewController = [[UZMultipleLayeredContentViewController alloc] initWithContentViewController:viewControllerToPresent contentSize:contentSize];
 	[_layeredControllers addObject:viewController];
-	[self presentLastChildViewControllerFromRect:fromRect inView:inView direction:direction];
+	[self presentLastLayeredViewControllerFromRect:fromRect inView:inView direction:direction];
 }
 
-- (void)presentFromRect:(CGRect)fromRect inViewController:(UIViewController*)inViewController direction:(UZMultipleLayeredPopoverDirection)direction {
+- (void)presentFromRect:(CGRect)fromRect inViewController:(UIViewController*)inViewController direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passthroughViews {
 	_inViewController = inViewController;
 	[_inViewController addChildViewController:self];
 	self.view.frame = _inViewController.view.bounds;
 	[_inViewController.view addSubview:self.view];
 	
-	[self presentLastChildViewControllerFromRect:fromRect inView:inViewController.view direction:direction];
+	[self presentLastLayeredViewControllerFromRect:fromRect inView:inViewController.view direction:direction];
 }
 
 @end
