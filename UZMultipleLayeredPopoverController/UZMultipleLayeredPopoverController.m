@@ -121,6 +121,10 @@
 
 @implementation UZMultipleLayeredPopoverController
 
+- (void)dealloc {
+    DNSLogMethod
+}
+
 #pragma mark - Override
 
 /**
