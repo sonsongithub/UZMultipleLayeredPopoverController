@@ -20,6 +20,7 @@
 @interface UZMultipleLayeredPopoverController() {
 	UIViewController *_inViewController;
 	NSMutableArray *_layeredControllers;
+	UZMultipleLayeredPopoverBackView *_backView;
 }
 - (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize passthroughViews:(NSArray*)passthroughViews;
 - (void)presentFromRect:(CGRect)fromRect inViewController:(UIViewController*)inViewController direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passthroughViews;
@@ -32,7 +33,7 @@
 
 /**
  * Returns the bottom of view controller's hierarchy parsing each view controllers' parents.
- * Typically, this method returns same object is as same as one UIWindow's keyWindow method returns.
+ * Typically, this method returns the object is as same as one UIWindow's keyWindow's rootViewController method returns.
  * \return UIViewController object which is the bottom of view controller's hierarchy.
  **/
 - (UIViewController*)rootViewController {
@@ -136,6 +137,7 @@
 		UZMultipleLayeredContentViewController *contentViewController = [_layeredControllers lastObject];
 		[contentViewController setActive:YES];
 	}
+	_backView.isActive = ([_layeredControllers count] == 1);
 }
 
 - (void)removeChildViewControllersToPopoverContentViewController:(UZMultipleLayeredContentViewController*)contentViewController {
@@ -151,6 +153,7 @@
 		UZMultipleLayeredContentViewController *contentViewController = [_layeredControllers lastObject];
 		[contentViewController setActive:YES];
 	}
+	_backView.isActive = ([_layeredControllers count] == 1);
 }
 
 - (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize passthroughViews:(NSArray*)passthroughViews {
@@ -168,9 +171,9 @@
 	}
 	self = [super init];
 	if (self) {
-		UZMultipleLayeredPopoverBackView *backView = [[UZMultipleLayeredPopoverBackView alloc] initWithFrame:CGRectZero];
-		backView.passthroughViews = passthroughViews;
-		self.view = backView;
+		_backView = [[UZMultipleLayeredPopoverBackView alloc] initWithFrame:CGRectZero];
+		_backView.passthroughViews = passthroughViews;
+		self.view = _backView;
 		_layeredControllers = [NSMutableArray array];
 		UZMultipleLayeredContentViewController *object = [[UZMultipleLayeredContentViewController alloc] initWithContentViewController:rootViewController contentSize:contentSize];
 		
@@ -365,6 +368,7 @@
 		if (vc != contentViewController)
 			[vc setActive:NO];
 	}
+	_backView.isActive = ([_layeredControllers count] == 1);
 	
 	// add the new top level view controller
 	[self addChildViewController:contentViewController];
@@ -376,6 +380,7 @@
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent fromRect:(CGRect)fromRect inView:(UIView*)inView contentSize:(CGSize)contentSize direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passthroughViews {
 	UZMultipleLayeredContentViewController *viewController = [[UZMultipleLayeredContentViewController alloc] initWithContentViewController:viewControllerToPresent contentSize:contentSize];
+	viewController.backView.passthroughViews = passthroughViews;
 	[_layeredControllers addObject:viewController];
 	[self presentLastLayeredViewControllerFromRect:fromRect inView:inView direction:direction];
 }

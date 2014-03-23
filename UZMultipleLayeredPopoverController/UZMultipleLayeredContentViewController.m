@@ -53,6 +53,7 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	self = [super init];
 	if (self) {
 		self.view = [[UZMultipleLayeredPopoverBackView alloc] initWithFrame:CGRectZero];
+		_backView = (UZMultipleLayeredPopoverBackView*)self.view;
 		
 		_baseView = [[UZMultipleLayeredPopoverBaseView alloc] initWithFrame:CGRectMake(0, 0, _popoverSize.width, _popoverSize.height)];
 		[self.view addSubview:_baseView];
@@ -92,10 +93,12 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	if (isActive) {
 		self.view.alpha = 1;
 		self.view.userInteractionEnabled = YES;
+		self.backView.isActive = YES;
 	}
 	else {
 		self.view.alpha = 0.5;
 		self.view.userInteractionEnabled = NO;
+		self.backView.isActive = NO;
 	}
 }
 

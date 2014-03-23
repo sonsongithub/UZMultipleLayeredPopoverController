@@ -18,21 +18,30 @@
 	return self;
 }
 
+- (void)setIsActive:(BOOL)isActive {
+	_isActive = isActive;
+	[self setNeedsDisplay];
+}
+
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-	for (UIView *passthroughView in self.passthroughViews) {
-		CGRect r = [self convertRect:passthroughView.bounds fromView:passthroughView];
-		if (CGRectContainsPoint(r, point))
-			return nil;
+	if (self.isActive) {
+		for (UIView *passthroughView in self.passthroughViews) {
+			CGRect r = [self convertRect:passthroughView.bounds fromView:passthroughView];
+			if (CGRectContainsPoint(r, point))
+				return nil;
+		}
 	}
 	return [super hitTest:point withEvent:event];
 }
 
 - (void)drawRect:(CGRect)rect {
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	for (UIView *passthroughView in self.passthroughViews) {
-		CGRect r = [self convertRect:passthroughView.bounds fromView:passthroughView];
-		[[[UIColor redColor] colorWithAlphaComponent:0.2] setFill];
-		CGContextFillRect(context, r);
+	if (self.isActive) {
+		CGContextRef context = UIGraphicsGetCurrentContext();
+		for (UIView *passthroughView in self.passthroughViews) {
+			CGRect r = [self convertRect:passthroughView.bounds fromView:passthroughView];
+			[[[UIColor redColor] colorWithAlphaComponent:0.2] setFill];
+			CGContextFillRect(context, r);
+		}
 	}
 }
 

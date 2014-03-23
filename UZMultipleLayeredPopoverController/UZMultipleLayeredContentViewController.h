@@ -12,6 +12,7 @@
 
 @class UZMultipleLayeredPopoverController;
 @class UZMultipleLayeredPopoverBaseView;
+@class UZMultipleLayeredPopoverBackView;
 
 CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize);
 
@@ -27,6 +28,7 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize);
 @property (nonatomic, assign) CGSize contentSize;
 @property (nonatomic, readonly) CGSize popoverSize;
 @property (nonatomic, readonly) UZMultipleLayeredPopoverBaseView *baseView;
+@property (nonatomic, readonly) UZMultipleLayeredPopoverBackView *backView;
 @property (nonatomic, assign) UZMultipleLayeredPopoverDirection direction;
 
 + (UIEdgeInsets)contentEdgeInsets;

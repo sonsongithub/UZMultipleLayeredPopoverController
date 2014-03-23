@@ -10,4 +10,5 @@
 
 @interface UZMultipleLayeredPopoverBackView : UIView
 @property (nonatomic, copy) NSArray *passthroughViews;
+@property (nonatomic, assign) BOOL isActive;
 @end
