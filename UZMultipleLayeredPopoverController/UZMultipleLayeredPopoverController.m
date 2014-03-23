@@ -135,6 +135,7 @@
 		[vc.view removeFromSuperview];
 		[_layeredControllers removeObject:vc];
 		UZMultipleLayeredContentViewController *contentViewController = [_layeredControllers lastObject];
+		contentViewController.backView.passthroughViews = nil;
 		[contentViewController setActive:YES];
 	}
 	_backView.isActive = ([_layeredControllers count] == 1);
@@ -151,6 +152,7 @@
 	}
 	{
 		UZMultipleLayeredContentViewController *contentViewController = [_layeredControllers lastObject];
+		contentViewController.backView.passthroughViews = nil;
 		[contentViewController setActive:YES];
 	}
 	_backView.isActive = ([_layeredControllers count] == 1);
@@ -173,6 +175,7 @@
 	if (self) {
 		_backView = [[UZMultipleLayeredPopoverBackView alloc] initWithFrame:CGRectZero];
 		_backView.passthroughViews = passthroughViews;
+		_backView.forPopover = YES;
 		self.view = _backView;
 		_layeredControllers = [NSMutableArray array];
 		UZMultipleLayeredContentViewController *object = [[UZMultipleLayeredContentViewController alloc] initWithContentViewController:rootViewController contentSize:contentSize];
@@ -378,9 +381,13 @@
 	[contentViewController updateSubviews];
 }
 
-- (void)presentViewController:(UIViewController *)viewControllerToPresent fromRect:(CGRect)fromRect inView:(UIView*)inView contentSize:(CGSize)contentSize direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passthroughViews {
+- (void)presentViewController:(UIViewController *)viewControllerToPresent fromRect:(CGRect)fromRect inView:(UIView*)inView contentSize:(CGSize)contentSize direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passThroughViews {
 	UZMultipleLayeredContentViewController *viewController = [[UZMultipleLayeredContentViewController alloc] initWithContentViewController:viewControllerToPresent contentSize:contentSize];
-	viewController.backView.passthroughViews = passthroughViews;
+	UZMultipleLayeredContentViewController *previousViewController = [_layeredControllers lastObject];
+	if (previousViewController) {
+		previousViewController.backView.passthroughViews = passThroughViews;
+		[previousViewController.backView setNeedsDisplay];
+	}
 	[_layeredControllers addObject:viewController];
 	[self presentLastLayeredViewControllerFromRect:fromRect inView:inView direction:direction];
 }
