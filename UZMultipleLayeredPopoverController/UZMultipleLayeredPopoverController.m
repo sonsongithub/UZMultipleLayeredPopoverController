@@ -46,6 +46,12 @@
 	return nil;
 }
 
+/**
+ * Returns the view controller object which has to be attached a new view controller as popover.
+ * If UZMultipleLayeredPopoverController object is not attached, typically returns the object is as same as one UIWindow's keyWindow's rootViewController method.
+ * If more than one view controllers are presented, returns UZMultipleLayeredPopoverController object.
+ * \return UIViewController object which is the bottom of view controller's hierarchy.
+ **/
 - (UIViewController*)targetViewController {
 	UIViewController *rootViewController = [self rootViewController];
 	for (id vc in [rootViewController childViewControllers]) {
@@ -55,33 +61,50 @@
 	return rootViewController;
 }
 
+/**
+ * Dismiss view controller on the top of popover controllers on UZMultipleLayeredPopoverController object.
+ **/
 - (void)dismissCurrentPopoverController {
 	UIViewController *con = [self targetViewController];
 	if ([con isKindOfClass:[UZMultipleLayeredPopoverController class]])
 		[(UZMultipleLayeredPopoverController*)con dismissTopViewController];
 }
 
+/**
+ * Dismiss all popover controllers on UZMultipleLayeredPopoverController object.
+ **/
 - (void)dismissMultipleLayeredPopoverController {
 	UIViewController *con = [self targetViewController];
 	if ([con isKindOfClass:[UZMultipleLayeredPopoverController class]])
 		[(UZMultipleLayeredPopoverController*)con dismiss];
 }
 
+/**
+ * Present the specified view controller as popover.
+ * The popover is always displayed on the unique UZMultipleLayeredPopoverController in the application.
+ *
+ * \param viewController The view controller for managing the popover’s content.
+ * \param contentSize The new size to apply to the content view.
+ * \param fromRect The rectangle in view at which to anchor the popover.
+ * \param inView The view containing the anchor rectangle for the popover.
+ * \param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
+ **/
 - (void)presentMultipleLayeredPopoverWithViewController:(UIViewController*)viewController contentSize:(CGSize)contentSize fromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction {
-	
-	UIViewController *con = [self targetViewController];
-	CGRect frame = [con.view convertRect:fromRect fromView:inView];
-	if ([con isKindOfClass:[UZMultipleLayeredPopoverController class]]) {
-		[(UZMultipleLayeredPopoverController*)con presentViewController:viewController fromRect:frame inView:con.view contentSize:contentSize direction:direction passthroughViews:nil];
-	}
-	else {
-		UZMultipleLayeredPopoverController *popoverController = [[UZMultipleLayeredPopoverController alloc] initWithRootViewController:viewController contentSize:contentSize passthroughViews:nil];
-		[popoverController presentFromRect:frame inViewController:con direction:direction passthroughViews:nil];
-	}
+	[self presentMultipleLayeredPopoverWithViewController:viewController contentSize:contentSize fromRect:fromRect inView:inView direction:direction passthroughViews:nil];
 }
 
+/**
+ * Present the specified view controller as popover.
+ * The popover is always displayed on the unique UZMultipleLayeredPopoverController in the application.
+ *
+ * \param viewController The view controller for managing the popover’s content.
+ * \param contentSize The new size to apply to the content view.
+ * \param fromRect The rectangle in view at which to anchor the popover.
+ * \param inView The view containing the anchor rectangle for the popover.
+ * \param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
+ * \param passthroughViews An array of views in "inView" argument that the user can interact with while the popover is visible.
+ **/
 - (void)presentMultipleLayeredPopoverWithViewController:(UIViewController*)viewController contentSize:(CGSize)contentSize fromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passthroughViews {
-	
 	UIViewController *con = [self targetViewController];
 	CGRect frame = [con.view convertRect:fromRect fromView:inView];
 	if ([con isKindOfClass:[UZMultipleLayeredPopoverController class]]) {
@@ -97,6 +120,14 @@
 
 @implementation UZMultipleLayeredPopoverController
 
+#pragma mark - Override
+
+/**
+ * Dismiss the view controllers that place betweet the top and the view controller which is tapped by user.
+ *
+ * \param touches A set of UITouch instances in the event represented by event that represent the touches in the UITouchPhaseBegan phase.
+ * \param event A UIEvent object representing the event to which the touches belong.
+ **/
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	DNSLogMethod
 	UITouch *touch = [touches anyObject];
@@ -115,6 +146,11 @@
 		[self dismiss];
 }
 
+#pragma mark - Dismiss
+
+/**
+ * Dismiss UZMultipleLayeredPopoverController object at all.
+ **/
 - (void)dismiss {
 	[self.view removeFromSuperview];
 	for (UIViewController *vc in _layeredControllers) {
@@ -125,6 +161,9 @@
 	[self removeFromParentViewController];
 }
 
+/**
+ * Dismiss the top of layered popover controllers on UZMultipleLayeredPopoverController.
+ **/
 - (void)dismissTopViewController {
 	if ([_layeredControllers count] == 1) {
 		[self dismiss];
@@ -141,6 +180,9 @@
 	_backView.isActive = ([_layeredControllers count] == 1);
 }
 
+/**
+ * Dismiss the layered popovers that are placed between top and sepecified one on UZMultipleLayeredPopoverController.
+ **/
 - (void)removeChildViewControllersToPopoverContentViewController:(UZMultipleLayeredContentViewController*)contentViewController {
 	DNSLogMethod
 	for (UIViewController *vc in [_layeredControllers reverseObjectEnumerator]) {
@@ -158,6 +200,25 @@
 	_backView.isActive = ([_layeredControllers count] == 1);
 }
 
+#pragma mark - Initialize
+
+/**
+ * Returns an initialized UZMultipleLayeredPopoverController object.
+ * \param rootViewController The view controller for managing the bottom of popover’s content.
+ * \param contentSize The size to apply to the content view.
+ * \return An initialized popover controller object.
+ **/
+- (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize {
+	return [self initWithRootViewController:rootViewController contentSize:contentSize passthroughViews:nil];
+}
+
+/**
+ * Returns an initialized UZMultipleLayeredPopoverController object.
+ * \param rootViewController The view controller for managing the bottom of popover’s content.
+ * \param contentSize The size to apply to the content view.
+ * \param passthroughViews An array of views in "inView" argument that the user can interact with while the popover is visible.
+ * \return An initialized popover controller object.
+ **/
 - (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize passthroughViews:(NSArray*)passthroughViews {
 	if ([rootViewController isKindOfClass:[UZMultipleLayeredPopoverController class]]) {
 		NSLog(@"You can not set a UZMultipleLayeredPopoverController object as the view controller on UZMultipleLayeredPopoverController objects.");
@@ -187,7 +248,20 @@
 	return self;
 }
 
-- (void)popoverRectWithsSecifiedContentSize:(CGSize)specifiedContentSize
+#pragma mark - Present
+
+/**
+ * Calculate popover rect according to the some parameters in order to adjust the offset betweeen popover and specified rectangle area.
+ * Results are copied into p1 and p2 and p3 arguments.
+ *
+ * \param specifiedContentSize The size to apply to the content view.
+ * \param fromRectInPopover The rectangle in view at which to anchor the popover.
+ * \param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
+ * \param p1 Upon return, contains the rectangle area in which the popover located.
+ * \param p2 Upon return, contains the intrinsic size of view controller in the popover.
+ * \param p3 Upon return, contains the offset between popover and specified rectangle area.
+ **/
+- (void)getPopoverRectWithsSecifiedContentSize:(CGSize)specifiedContentSize
 						  fromRectInPopover:(CGRect)fromRectInPopover
 								  direction:(UZMultipleLayeredPopoverDirection)direction
 								popoverRect:(CGRect*)p1
@@ -303,7 +377,16 @@
 	*p3 = floorf(popoverOffset);
 }
 
-- (void)presentLastLayeredViewControllerFromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction {
+/**
+ * Updates the location of the last view controller which is stacked in _layeredControllers buffer.
+ *
+ * \param fromRect The size to apply to the content view.
+ * \param inView The rectangle in view at which to anchor the popover.
+ * \param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
+ **/
+- (void)updateLastLayeredViewControllerFromRect:(CGRect)fromRect
+										 inView:(UIView*)inView
+									  direction:(UZMultipleLayeredPopoverDirection)direction {
 	UZMultipleLayeredContentViewController *contentViewController = [_layeredControllers lastObject];
 	CGRect fromRectInPopover = [self.view convertRect:fromRect fromView:inView];
 	CGSize contentSize = CGSizeZero;
@@ -314,7 +397,7 @@
 		direction = UZMultipleLayeredPopoverAnyDirection;
 	
 	if (direction != UZMultipleLayeredPopoverAnyDirection && direction != UZMultipleLayeredPopoverVerticalDirection && direction != UZMultipleLayeredPopoverHorizontalDirection) {
-		[self popoverRectWithsSecifiedContentSize:contentViewController.contentSize
+		[self getPopoverRectWithsSecifiedContentSize:contentViewController.contentSize
 								fromRectInPopover:fromRectInPopover
 										direction:direction
 									  popoverRect:&popoverRect
@@ -338,7 +421,7 @@
 		};
 		for (int i = 0; i < 4; i++) {
 			if (directions[i] & direction) {
-				[self popoverRectWithsSecifiedContentSize:contentViewController.contentSize
+				[self getPopoverRectWithsSecifiedContentSize:contentViewController.contentSize
 										fromRectInPopover:fromRectInPopover
 												direction:directions[i]
 											  popoverRect:&popoverRects[i]
@@ -381,7 +464,22 @@
 	[contentViewController updateSubviews];
 }
 
-- (void)presentViewController:(UIViewController *)viewControllerToPresent fromRect:(CGRect)fromRect inView:(UIView*)inView contentSize:(CGSize)contentSize direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passThroughViews {
+/**
+ * Displays the popover and anchors it to the specified location in the view.
+ *
+ * \param viewControllerToPresent The view controller for managing the bottom of popover’s content.
+ * \param fromRect The rectangle in view at which to anchor the popover.
+ * \param inView The view containing the anchor rectangle for the popover.
+ * \param contentSize The new size to apply to the content view.
+ * \param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
+ * \param passThroughViews An array of views in "inView" argument that the user can interact with while the popover is visible.
+ **/
+- (void)presentViewController:(UIViewController *)viewControllerToPresent
+					 fromRect:(CGRect)fromRect
+					   inView:(UIView*)inView
+				  contentSize:(CGSize)contentSize
+					direction:(UZMultipleLayeredPopoverDirection)direction
+			 passthroughViews:(NSArray*)passThroughViews {
 	UZMultipleLayeredContentViewController *viewController = [[UZMultipleLayeredContentViewController alloc] initWithContentViewController:viewControllerToPresent contentSize:contentSize];
 	UZMultipleLayeredContentViewController *previousViewController = [_layeredControllers lastObject];
 	if (previousViewController) {
@@ -389,16 +487,27 @@
 		[previousViewController.backView setNeedsDisplay];
 	}
 	[_layeredControllers addObject:viewController];
-	[self presentLastLayeredViewControllerFromRect:fromRect inView:inView direction:direction];
+	[self updateLastLayeredViewControllerFromRect:fromRect inView:inView direction:direction];
 }
 
-- (void)presentFromRect:(CGRect)fromRect inViewController:(UIViewController*)inViewController direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passthroughViews {
+/**
+ * Displays the popover's one self on the specified view controller as its child view controller.
+ *
+ * \param fromRect The rectangle in view at which to anchor the popover.
+ * \param inViewController The view controller to which the this popover is added.
+ * \param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
+ * \param passthroughViews An array of views in "inViewController"'s view that the user can interact with while the popover is visible.
+ **/
+- (void)presentFromRect:(CGRect)fromRect
+	   inViewController:(UIViewController*)inViewController
+			  direction:(UZMultipleLayeredPopoverDirection)direction
+	   passthroughViews:(NSArray*)passthroughViews {
 	_inViewController = inViewController;
 	[_inViewController addChildViewController:self];
 	self.view.frame = _inViewController.view.bounds;
 	[_inViewController.view addSubview:self.view];
 	
-	[self presentLastLayeredViewControllerFromRect:fromRect inView:inViewController.view direction:direction];
+	[self updateLastLayeredViewControllerFromRect:fromRect inView:inViewController.view direction:direction];
 }
 
 @end
