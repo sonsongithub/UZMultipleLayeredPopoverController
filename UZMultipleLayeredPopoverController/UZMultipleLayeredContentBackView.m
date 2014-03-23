@@ -1,14 +1,14 @@
 //
-//  UZMultipleLayeredPopoverBackView.m
+//  UZMultipleLayeredContentBackView.m
 //  UZMultipleLayeredPopoverController
 //
-//  Created by sonson on 2014/03/23.
+//  Created by sonson on 2014/03/24.
 //  Copyright (c) 2014年 sonson. All rights reserved.
 //
 
-#import "UZMultipleLayeredPopoverBackView.h"
+#import "UZMultipleLayeredContentBackView.h"
 
-@implementation UZMultipleLayeredPopoverBackView
+@implementation UZMultipleLayeredContentBackView
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
 	if (![self.passthroughViews count]) {
@@ -18,9 +18,9 @@
 		for (UIView *passthroughView in self.passthroughViews) {
 			CGRect r = [self convertRect:passthroughView.bounds fromView:passthroughView];
 			if (CGRectContainsPoint(r, point))
-				return nil;
+				return [super hitTest:point withEvent:event];
 		}
-		return [super hitTest:point withEvent:event];
+		return nil;
 	}
 }
 
@@ -42,7 +42,6 @@
 		CGContextFillRect(context, r);
 	}
 }
-
 #endif
 
 @end

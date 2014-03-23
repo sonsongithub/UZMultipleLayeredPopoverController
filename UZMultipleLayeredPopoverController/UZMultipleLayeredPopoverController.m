@@ -10,6 +10,7 @@
 
 #import "UZMultipleLayeredContentViewController.h"
 #import "UZMultipleLayeredPopoverBackView.h"
+#import "UZMultipleLayeredContentBackView.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define CGRectGetCenter(p)	CGPointMake(CGRectGetMidX(p), CGRectGetMidY(p))
@@ -175,9 +176,8 @@
 		[_layeredControllers removeObject:vc];
 		UZMultipleLayeredContentViewController *contentViewController = [_layeredControllers lastObject];
 		contentViewController.backView.passthroughViews = nil;
-		[contentViewController setActive:YES];
 	}
-	_backView.isActive = ([_layeredControllers count] == 1);
+//	_backView.isActive = ([_layeredControllers count] == 1);
 }
 
 /**
@@ -195,9 +195,8 @@
 	{
 		UZMultipleLayeredContentViewController *contentViewController = [_layeredControllers lastObject];
 		contentViewController.backView.passthroughViews = nil;
-		[contentViewController setActive:YES];
 	}
-	_backView.isActive = ([_layeredControllers count] == 1);
+//	_backView.isActive = ([_layeredControllers count] == 1);
 }
 
 #pragma mark - Initialize
@@ -236,7 +235,6 @@
 	if (self) {
 		_backView = [[UZMultipleLayeredPopoverBackView alloc] initWithFrame:CGRectZero];
 		_backView.passthroughViews = passthroughViews;
-		_backView.forPopover = YES;
 		self.view = _backView;
 		_layeredControllers = [NSMutableArray array];
 		UZMultipleLayeredContentViewController *object = [[UZMultipleLayeredContentViewController alloc] initWithContentViewController:rootViewController contentSize:contentSize];
@@ -449,18 +447,10 @@
 		popoverRect = popoverRects[saved];
 	}
 	
-	// deactivate view controllers without the top level view controller.
-	for (UZMultipleLayeredContentViewController *vc in _layeredControllers) {
-		if (vc != contentViewController)
-			[vc setActive:NO];
-	}
-	_backView.isActive = ([_layeredControllers count] == 1);
-	
 	// add the new top level view controller
 	[self addChildViewController:contentViewController];
 	[self.view addSubview:contentViewController.view];
 	contentViewController.view.frame = popoverRect;
-	[contentViewController setActive:YES];
 	[contentViewController updateSubviews];
 }
 

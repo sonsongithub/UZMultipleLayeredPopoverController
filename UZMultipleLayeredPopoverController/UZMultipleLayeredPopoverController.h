@@ -9,17 +9,21 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+/**
+ * Constants for specifying the direction of the popover arrow.
+ **/
 typedef enum _UZMultipleLayeredPopoverDirection {
-	UZMultipleLayeredPopoverTopDirection		= 1,
-	UZMultipleLayeredPopoverBottomDirection		= 1 << 1,
-	UZMultipleLayeredPopoverLeftDirection		= 1 << 2,
-	UZMultipleLayeredPopoverRightDirection		= 1 << 3,
-	UZMultipleLayeredPopoverAnyDirection		= (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3),
-	UZMultipleLayeredPopoverVerticalDirection	= (1 << 0) | (1 << 1),
-	UZMultipleLayeredPopoverHorizontalDirection	= (1 << 2) | (1 << 3)
+	UZMultipleLayeredPopoverTopDirection		= 1,											/**< An arrow that points upward. */
+	UZMultipleLayeredPopoverBottomDirection		= 1 << 1,										/**< An arrow that points downward. */
+	UZMultipleLayeredPopoverLeftDirection		= 1 << 2,										/**< An arrow that points toward the left. */
+	UZMultipleLayeredPopoverRightDirection		= 1 << 3,										/**< An arrow that points toward the right. */
+	UZMultipleLayeredPopoverAnyDirection		= (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3),	/**< An arrow that points in any direction. */
+	UZMultipleLayeredPopoverVerticalDirection	= (1 << 0) | (1 << 1),							/**< An arrow that points in upward or downward direction. */
+	UZMultipleLayeredPopoverHorizontalDirection	= (1 << 2) | (1 << 3)							/**< An arrow that points in left or right direction. */
 }UZMultipleLayeredPopoverDirection;
 
 @interface UIViewController (UZMultipleLayeredPopoverController)
+
 /**
  * Dismiss view controller on the top of popover controllers on UZMultipleLayeredPopoverController object.
  **/
@@ -54,6 +58,7 @@ typedef enum _UZMultipleLayeredPopoverDirection {
  * \param passthroughViews An array of views in "inView" argument that the user can interact with while the popover is visible.
  **/
 - (void)presentMultipleLayeredPopoverWithViewController:(UIViewController*)viewController contentSize:(CGSize)contentSize fromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passthroughViews;
+
 @end
 
 @interface UZMultipleLayeredPopoverController : UIViewController

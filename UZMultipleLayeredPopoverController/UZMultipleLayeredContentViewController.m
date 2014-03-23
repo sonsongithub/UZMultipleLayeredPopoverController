@@ -10,6 +10,7 @@
 
 #import "UZMultipleLayeredPopoverBaseView.h"
 #import "UZMultipleLayeredPopoverBackView.h"
+#import "UZMultipleLayeredContentBackView.h"
 
 CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	CGSize popoverSize = contentSize;
@@ -52,9 +53,8 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	}
 	self = [super init];
 	if (self) {
-		_backView = [[UZMultipleLayeredPopoverBackView alloc] initWithFrame:CGRectZero];
+		_backView = [[UZMultipleLayeredContentBackView alloc] initWithFrame:CGRectZero];
 		self.view = _backView;
-//		[self.view addSubview:_backView];
 		
 		_baseView = [[UZMultipleLayeredPopoverBaseView alloc] initWithFrame:CGRectMake(0, 0, _popoverSize.width, _popoverSize.height)];
 		[self.view addSubview:_baseView];
@@ -87,24 +87,6 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	_direction = direction;
 	_baseView.direction = direction;
 	[_baseView setNeedsDisplay];
-}
-
-- (void)setActive:(BOOL)isActive {
-	DNSLog(@"%@", self.parentViewController);
-	if (isActive) {
-//		[self.view bringSubviewToFront:_backView];
-//		_backView.hidden = NO;
-//		self.view.alpha = 1;
-//		self.view.userInteractionEnabled = YES;
-		self.backView.isActive = YES;
-	}
-	else {
-//		[self.view sendSubviewToBack:_backView];
-//		_backView.hidden = YES;
-//		self.view.alpha = 0.5;
-//		self.view.userInteractionEnabled = NO;
-		self.backView.isActive = YES;
-	}
 }
 
 - (void)updateSubviews {
