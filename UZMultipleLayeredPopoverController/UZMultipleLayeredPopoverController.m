@@ -18,6 +18,8 @@
 #define CGRectFloor(p) CGRectMake(floorf(p.origin.x), floorf(p.origin.y), floorf(p.size.width), floorf(p.size.height))
 #define CGSizeFloor(p) CGSizeMake(floorf(p.width), floorf(p.height))
 
+NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLayeredPopoverDidDismissNotification";
+
 @interface UZMultipleLayeredPopoverController() {
 	UIViewController *_inViewController;
 	NSMutableArray *_layeredControllers;
@@ -164,6 +166,9 @@
 	}
 	[_layeredControllers removeAllObjects];
 	[self removeFromParentViewController];
+	
+	// Post notification when UZMultipleLayeredPopoverController is dismissed.
+	[[NSNotificationCenter defaultCenter] postNotificationName:UZMultipleLayeredPopoverDidDismissNotification object:self userInfo:@{}];
 }
 
 /**
@@ -181,7 +186,6 @@
 		UZMultipleLayeredContentViewController *contentViewController = [_layeredControllers lastObject];
 		contentViewController.backView.passthroughViews = nil;
 	}
-//	_backView.isActive = ([_layeredControllers count] == 1);
 }
 
 /**
@@ -200,7 +204,6 @@
 		UZMultipleLayeredContentViewController *contentViewController = [_layeredControllers lastObject];
 		contentViewController.backView.passthroughViews = nil;
 	}
-//	_backView.isActive = ([_layeredControllers count] == 1);
 }
 
 #pragma mark - Initialize

@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+extern NSString *const UZMultipleLayeredPopoverDidDismissNotification;							/**< Posted shortly after UZMultipleLayeredPopoverController is dismissed. The object of the notification is the UZMultipleLayeredPopoverController object. There is no userInfo dictionary. */
+
 /**
  * Constants for specifying the direction of the popover arrow.
  **/
