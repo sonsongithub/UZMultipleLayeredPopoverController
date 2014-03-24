@@ -14,8 +14,8 @@
 
 /**
  * Returns size of popover which contains view controller, adding UZMultipleLayeredContentViewController's contentEdgeInsets as margin.
- * \param contentSize The size of view controller as contents.
- * \return size The size of popover which contains view controller.
+ * @param contentSize The size of view controller as contents.
+ * @return size The size of popover which contains view controller.
  **/
 CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	CGSize popoverSize = contentSize;
@@ -30,7 +30,7 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 
 /**
  * Returns edge insets as margin of the view controller as contents is added to UZMultipleLayeredPopoverController object.
- * \return The edge insets as margin of contents.
+ * @return The edge insets as margin of contents.
  **/
 + (UIEdgeInsets)contentEdgeInsets {
 	return UIEdgeInsetsMake(UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin);
@@ -44,7 +44,7 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 
 /**
  * Returns rectangle for this view controller's view, considering the margin around contents.
- * \return The rectangle for this view controller's view.
+ * @return The rectangle for this view controller's view.
  **/
 - (CGRect)contentFrame {
 	UIEdgeInsets inverseInsets = UIEdgeInsetsMake(UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin, UZMultipleLayeredPopoverContentMargin);
@@ -54,9 +54,9 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 /**
  * Returns an initiallized UZMultipleLayeredContentViewController object.
  *
- * \param contentViewController The view controller whose content should be displayed by the popover.
- * \param contentSize The size of the view controller whose content should be displayed by the popover.
- * \return An initiallized UZMultipleLayeredContentViewController object.
+ * @param contentViewController The view controller whose content should be displayed by the popover.
+ * @param contentSize The size of the view controller whose content should be displayed by the popover.
+ * @return An initiallized UZMultipleLayeredContentViewController object.
  **/
 - (id)initWithContentViewController:(UIViewController*)contentViewController contentSize:(CGSize)contentSize {
 	if ([contentViewController isKindOfClass:[UZMultipleLayeredPopoverController class]]) {
@@ -97,27 +97,6 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 }
 
 /**
- * The size of the content view.
- * \param contentSize The size of the view controller whose content should be displayed by the popover.
- **/
-- (void)setContentSize:(CGSize)contentSize {
-	_contentSize = contentSize;
-	_popoverSize = UZMultipleLayeredPopoverSizeFromContentSize(_contentSize);
-	[self updateSubviews];
-	[_baseView setNeedsDisplay];
-}
-
-/**
- * The direction of the popover’s arrow.
- * \param direction The new arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
- **/
-- (void)setDirection:(UZMultipleLayeredPopoverDirection)direction {
-	_direction = direction;
-	_baseView.direction = direction;
-	[_baseView setNeedsDisplay];
-}
-
-/**
  * Updates all views' locations and rectangles on the this controller's view.
  **/
 - (void)updateSubviews {
@@ -125,7 +104,21 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 	CGRect childViewControllerFrame = CGRectMake([UZMultipleLayeredContentViewController contentEdgeInsets].left, [UZMultipleLayeredContentViewController contentEdgeInsets].top, _contentSize.width, _contentSize.height);
 	_contentViewController.view.frame = childViewControllerFrame;
 	_baseView.frame = CGRectMake(0, 0, _popoverSize.width, _popoverSize.height);
-	_baseView.contentEdgeInsets = [UZMultipleLayeredContentViewController contentEdgeInsets];
+}
+
+#pragma mark - Setter and getter
+
+- (void)setContentSize:(CGSize)contentSize {
+	_contentSize = contentSize;
+	_popoverSize = UZMultipleLayeredPopoverSizeFromContentSize(_contentSize);
+	[self updateSubviews];
+	[_baseView setNeedsDisplay];
+}
+
+- (void)setDirection:(UZMultipleLayeredPopoverDirection)direction {
+	_direction = direction;
+	_baseView.direction = direction;
+	[_baseView setNeedsDisplay];
 }
 
 @end

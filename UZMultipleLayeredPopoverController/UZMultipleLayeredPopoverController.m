@@ -35,7 +35,7 @@
 /**
  * Returns the bottom of view controller's hierarchy parsing each view controllers' parents.
  * Typically, this method returns the object is as same as one UIWindow's keyWindow's rootViewController method returns.
- * \return UIViewController object which is the bottom of view controller's hierarchy.
+ * @return UIViewController object which is the bottom of view controller's hierarchy.
  **/
 - (UIViewController*)rootViewController {
 	UIViewController *current = self;
@@ -51,7 +51,7 @@
  * Returns the view controller object which has to be attached a new view controller as popover.
  * If UZMultipleLayeredPopoverController object is not attached, typically returns the object is as same as one UIWindow's keyWindow's rootViewController method.
  * If more than one view controllers are presented, returns UZMultipleLayeredPopoverController object.
- * \return UIViewController object which is the bottom of view controller's hierarchy.
+ * @return UIViewController object which is the bottom of view controller's hierarchy.
  **/
 - (UIViewController*)targetViewController {
 	UIViewController *rootViewController = [self rootViewController];
@@ -84,11 +84,11 @@
  * Present the specified view controller as popover.
  * The popover is always displayed on the unique UZMultipleLayeredPopoverController in the application.
  *
- * \param viewController The view controller for managing the popover’s content.
- * \param contentSize The new size to apply to the content view.
- * \param fromRect The rectangle in view at which to anchor the popover.
- * \param inView The view containing the anchor rectangle for the popover.
- * \param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
+ * @param viewController The view controller for managing the popover’s content.
+ * @param contentSize The new size to apply to the content view.
+ * @param fromRect The rectangle in view at which to anchor the popover.
+ * @param inView The view containing the anchor rectangle for the popover.
+ * @param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
  **/
 - (void)presentMultipleLayeredPopoverWithViewController:(UIViewController*)viewController contentSize:(CGSize)contentSize fromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction {
 	[self presentMultipleLayeredPopoverWithViewController:viewController contentSize:contentSize fromRect:fromRect inView:inView direction:direction passthroughViews:nil];
@@ -98,12 +98,12 @@
  * Present the specified view controller as popover.
  * The popover is always displayed on the unique UZMultipleLayeredPopoverController in the application.
  *
- * \param viewController The view controller for managing the popover’s content.
- * \param contentSize The new size to apply to the content view.
- * \param fromRect The rectangle in view at which to anchor the popover.
- * \param inView The view containing the anchor rectangle for the popover.
- * \param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
- * \param passthroughViews An array of views in "inView" argument that the user can interact with while the popover is visible.
+ * @param viewController The view controller for managing the popover’s content.
+ * @param contentSize The new size to apply to the content view.
+ * @param fromRect The rectangle in view at which to anchor the popover.
+ * @param inView The view containing the anchor rectangle for the popover.
+ * @param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
+ * @param passthroughViews An array of views in "inView" argument that the user can interact with while the popover is visible.
  **/
 - (void)presentMultipleLayeredPopoverWithViewController:(UIViewController*)viewController contentSize:(CGSize)contentSize fromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passthroughViews {
 	UIViewController *con = [self targetViewController];
@@ -130,8 +130,8 @@
 /**
  * Dismiss the view controllers that place betweet the top and the view controller which is tapped by user.
  *
- * \param touches A set of UITouch instances in the event represented by event that represent the touches in the UITouchPhaseBegan phase.
- * \param event A UIEvent object representing the event to which the touches belong.
+ * @param touches A set of UITouch instances in the event represented by event that represent the touches in the UITouchPhaseBegan phase.
+ * @param event A UIEvent object representing the event to which the touches belong.
  **/
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	DNSLogMethod
@@ -207,9 +207,9 @@
 
 /**
  * Returns an initialized UZMultipleLayeredPopoverController object.
- * \param rootViewController The view controller for managing the bottom of popover’s content.
- * \param contentSize The size to apply to the content view.
- * \return An initialized popover controller object.
+ * @param rootViewController The view controller for managing the bottom of popover’s content.
+ * @param contentSize The size to apply to the content view.
+ * @return An initialized popover controller object.
  **/
 - (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize {
 	return [self initWithRootViewController:rootViewController contentSize:contentSize passthroughViews:nil];
@@ -217,10 +217,10 @@
 
 /**
  * Returns an initialized UZMultipleLayeredPopoverController object.
- * \param rootViewController The view controller for managing the bottom of popover’s content.
- * \param contentSize The size to apply to the content view.
- * \param passthroughViews An array of views in "inView" argument that the user can interact with while the popover is visible.
- * \return An initialized popover controller object.
+ * @param rootViewController The view controller for managing the bottom of popover’s content.
+ * @param contentSize The size to apply to the content view.
+ * @param passthroughViews An array of views in "inView" argument that the user can interact with while the popover is visible.
+ * @return An initialized popover controller object.
  **/
 - (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize passthroughViews:(NSArray*)passthroughViews {
 	if ([rootViewController isKindOfClass:[UZMultipleLayeredPopoverController class]]) {
@@ -256,12 +256,12 @@
  * Calculate popover rect according to the some parameters in order to adjust the offset betweeen popover and specified rectangle area.
  * Results are copied into p1 and p2 and p3 arguments.
  *
- * \param specifiedContentSize The size to apply to the content view.
- * \param fromRectInPopover The rectangle in view at which to anchor the popover.
- * \param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
- * \param p1 Upon return, contains the rectangle area in which the popover located.
- * \param p2 Upon return, contains the intrinsic size of view controller in the popover.
- * \param p3 Upon return, contains the offset between popover and specified rectangle area.
+ * @param specifiedContentSize The size to apply to the content view.
+ * @param fromRectInPopover The rectangle in view at which to anchor the popover.
+ * @param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
+ * @param p1 Upon return, contains the rectangle area in which the popover located.
+ * @param p2 Upon return, contains the intrinsic size of view controller in the popover.
+ * @param p3 Upon return, contains the offset between popover and specified rectangle area.
  **/
 - (void)getPopoverRectWithsSecifiedContentSize:(CGSize)specifiedContentSize
 						  fromRectInPopover:(CGRect)fromRectInPopover
@@ -382,9 +382,9 @@
 /**
  * Updates the location of the last view controller which is stacked in _layeredControllers buffer.
  *
- * \param fromRect The size to apply to the content view.
- * \param inView The rectangle in view at which to anchor the popover.
- * \param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
+ * @param fromRect The size to apply to the content view.
+ * @param inView The rectangle in view at which to anchor the popover.
+ * @param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
  **/
 - (void)updateLastLayeredViewControllerFromRect:(CGRect)fromRect
 										 inView:(UIView*)inView
@@ -461,12 +461,12 @@
 /**
  * Displays the popover and anchors it to the specified location in the view.
  *
- * \param viewControllerToPresent The view controller for managing the bottom of popover’s content.
- * \param fromRect The rectangle in view at which to anchor the popover.
- * \param inView The view containing the anchor rectangle for the popover.
- * \param contentSize The new size to apply to the content view.
- * \param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
- * \param passThroughViews An array of views in "inView" argument that the user can interact with while the popover is visible.
+ * @param viewControllerToPresent The view controller for managing the bottom of popover’s content.
+ * @param fromRect The rectangle in view at which to anchor the popover.
+ * @param inView The view containing the anchor rectangle for the popover.
+ * @param contentSize The new size to apply to the content view.
+ * @param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
+ * @param passThroughViews An array of views in "inView" argument that the user can interact with while the popover is visible.
  **/
 - (void)presentViewController:(UIViewController *)viewControllerToPresent
 					 fromRect:(CGRect)fromRect
@@ -487,10 +487,10 @@
 /**
  * Displays the popover's one self on the specified view controller as its child view controller.
  *
- * \param fromRect The rectangle in view at which to anchor the popover.
- * \param inViewController The view controller to which the this popover is added.
- * \param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
- * \param passthroughViews An array of views in "inViewController"'s view that the user can interact with while the popover is visible.
+ * @param fromRect The rectangle in view at which to anchor the popover.
+ * @param inViewController The view controller to which the this popover is added.
+ * @param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
+ * @param passthroughViews An array of views in "inViewController"'s view that the user can interact with while the popover is visible.
  **/
 - (void)presentFromRect:(CGRect)fromRect
 	   inViewController:(UIViewController*)inViewController
