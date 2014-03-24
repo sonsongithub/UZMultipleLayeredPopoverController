@@ -18,11 +18,11 @@
  * @return The view object that is the farthest descendent the current view and contains point. Returns nil if the point lies completely outside the receiver’s view hierarchy.
  **/
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-	if (![self.passthroughViews count]) {
+	if (![self.passThroughViews count]) {
 		return [super hitTest:point withEvent:event];
 	}
 	else {
-		for (UIView *passthroughView in self.passthroughViews) {
+		for (UIView *passthroughView in self.passThroughViews) {
 			CGRect r = [self convertRect:passthroughView.bounds fromView:passthroughView];
 			if (CGRectContainsPoint(r, point))
 				return nil;

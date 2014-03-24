@@ -24,7 +24,7 @@
 	}
 	else {
 		// This view is not active.
-		for (UIView *passthroughView in self.passthroughViews) {
+		for (UIView *passthroughView in self.passThroughViews) {
 			CGRect r = [self convertRect:passthroughView.bounds fromView:passthroughView];
 			if (CGRectContainsPoint(r, point))
 				return [super hitTest:point withEvent:event];

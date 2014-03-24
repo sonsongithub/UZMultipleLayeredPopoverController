@@ -25,9 +25,9 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
 	NSMutableArray *_layeredControllers;
 	UZMultipleLayeredPopoverBackView *_backView;
 }
-- (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize passthroughViews:(NSArray*)passthroughViews;
-- (void)presentFromRect:(CGRect)fromRect inViewController:(UIViewController*)inViewController direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passthroughViews;
-- (void)presentViewController:(UIViewController *)viewControllerToPresent fromRect:(CGRect)fromRect inView:(UIView*)inView contentSize:(CGSize)contentSize direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passthroughViews;
+- (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize passThroughViews:(NSArray*)passThroughViews;
+- (void)presentFromRect:(CGRect)fromRect inViewController:(UIViewController*)inViewController direction:(UZMultipleLayeredPopoverDirection)direction passThroughViews:(NSArray*)passThroughViews;
+- (void)presentViewController:(UIViewController *)viewControllerToPresent fromRect:(CGRect)fromRect inView:(UIView*)inView contentSize:(CGSize)contentSize direction:(UZMultipleLayeredPopoverDirection)direction passThroughViews:(NSArray*)passThroughViews;
 - (void)dismiss;
 - (void)dismissTopViewController;
 @end
@@ -93,7 +93,7 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
  * @param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
  **/
 - (void)presentMultipleLayeredPopoverWithViewController:(UIViewController*)viewController contentSize:(CGSize)contentSize fromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction {
-	[self presentMultipleLayeredPopoverWithViewController:viewController contentSize:contentSize fromRect:fromRect inView:inView direction:direction passthroughViews:nil];
+	[self presentMultipleLayeredPopoverWithViewController:viewController contentSize:contentSize fromRect:fromRect inView:inView direction:direction passThroughViews:nil];
 }
 
 /**
@@ -107,15 +107,15 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
  * @param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
  * @param passthroughViews An array of views in "inView" argument that the user can interact with while the popover is visible.
  **/
-- (void)presentMultipleLayeredPopoverWithViewController:(UIViewController*)viewController contentSize:(CGSize)contentSize fromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction passthroughViews:(NSArray*)passthroughViews {
+- (void)presentMultipleLayeredPopoverWithViewController:(UIViewController*)viewController contentSize:(CGSize)contentSize fromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction passThroughViews:(NSArray*)passthroughViews {
 	UIViewController *con = [self targetViewController];
 	CGRect frame = [con.view convertRect:fromRect fromView:inView];
 	if ([con isKindOfClass:[UZMultipleLayeredPopoverController class]]) {
-		[(UZMultipleLayeredPopoverController*)con presentViewController:viewController fromRect:frame inView:con.view contentSize:contentSize direction:direction passthroughViews:passthroughViews];
+		[(UZMultipleLayeredPopoverController*)con presentViewController:viewController fromRect:frame inView:con.view contentSize:contentSize direction:direction passThroughViews:passthroughViews];
 	}
 	else {
-		UZMultipleLayeredPopoverController *popoverController = [[UZMultipleLayeredPopoverController alloc] initWithRootViewController:viewController contentSize:contentSize passthroughViews:passthroughViews];
-		[popoverController presentFromRect:frame inViewController:con direction:direction passthroughViews:passthroughViews];
+		UZMultipleLayeredPopoverController *popoverController = [[UZMultipleLayeredPopoverController alloc] initWithRootViewController:viewController contentSize:contentSize passThroughViews:passthroughViews];
+		[popoverController presentFromRect:frame inViewController:con direction:direction passThroughViews:passthroughViews];
 	}
 }
 
@@ -184,7 +184,7 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
 		[vc.view removeFromSuperview];
 		[_layeredControllers removeObject:vc];
 		UZMultipleLayeredContentViewController *contentViewController = [_layeredControllers lastObject];
-		contentViewController.backView.passthroughViews = nil;
+		contentViewController.backView.passThroughViews = nil;
 		contentViewController.backView.active = YES;
 	}
 }
@@ -203,7 +203,7 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
 	}
 	{
 		UZMultipleLayeredContentViewController *contentViewController = [_layeredControllers lastObject];
-		contentViewController.backView.passthroughViews = nil;
+		contentViewController.backView.passThroughViews = nil;
 		contentViewController.backView.active = YES;
 	}
 }
@@ -217,7 +217,7 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
  * @return An initialized popover controller object.
  **/
 - (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize {
-	return [self initWithRootViewController:rootViewController contentSize:contentSize passthroughViews:nil];
+	return [self initWithRootViewController:rootViewController contentSize:contentSize passThroughViews:nil];
 }
 
 /**
@@ -227,7 +227,7 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
  * @param passthroughViews An array of views in "inView" argument that the user can interact with while the popover is visible.
  * @return An initialized popover controller object.
  **/
-- (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize passthroughViews:(NSArray*)passthroughViews {
+- (id)initWithRootViewController:(UIViewController*)rootViewController contentSize:(CGSize)contentSize passThroughViews:(NSArray*)passthroughViews {
 	if ([rootViewController isKindOfClass:[UZMultipleLayeredPopoverController class]]) {
 		NSLog(@"You can not set a UZMultipleLayeredPopoverController object as the view controller on UZMultipleLayeredPopoverController objects.");
 		return nil;
@@ -243,7 +243,7 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
 	self = [super init];
 	if (self) {
 		_backView = [[UZMultipleLayeredPopoverBackView alloc] initWithFrame:CGRectZero];
-		_backView.passthroughViews = passthroughViews;
+		_backView.passThroughViews = passthroughViews;
 		self.view = _backView;
 		_layeredControllers = [NSMutableArray array];
 		UZMultipleLayeredContentViewController *vc = [[UZMultipleLayeredContentViewController alloc] initWithContentViewController:rootViewController contentSize:contentSize];
@@ -483,11 +483,11 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
 					   inView:(UIView*)inView
 				  contentSize:(CGSize)contentSize
 					direction:(UZMultipleLayeredPopoverDirection)direction
-			 passthroughViews:(NSArray*)passThroughViews {
+			 passThroughViews:(NSArray*)passThroughViews {
 	UZMultipleLayeredContentViewController *viewController = [[UZMultipleLayeredContentViewController alloc] initWithContentViewController:viewControllerToPresent contentSize:contentSize];
 	UZMultipleLayeredContentViewController *previousViewController = [_layeredControllers lastObject];
 	if (previousViewController) {
-		previousViewController.backView.passthroughViews = passThroughViews;
+		previousViewController.backView.passThroughViews = passThroughViews;
 		[previousViewController.backView setNeedsDisplay];
 	}
 	[_layeredControllers addObject:viewController];
@@ -505,7 +505,7 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
 - (void)presentFromRect:(CGRect)fromRect
 	   inViewController:(UIViewController*)inViewController
 			  direction:(UZMultipleLayeredPopoverDirection)direction
-	   passthroughViews:(NSArray*)passthroughViews {
+	   passThroughViews:(NSArray*)passthroughViews {
 	_inViewController = inViewController;
 	[_inViewController addChildViewController:self];
 	self.view.frame = _inViewController.view.bounds;

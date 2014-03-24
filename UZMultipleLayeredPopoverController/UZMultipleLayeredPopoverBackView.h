@@ -18,5 +18,5 @@
  * @discussion This class is designed to ignore the events which are occured in pass through views in order to dismiss UZMultipleLayeredPopoverController object.
  **/
 @interface UZMultipleLayeredPopoverBackView : UIView
-@property (nonatomic, copy) NSArray *passthroughViews;
+@property (nonatomic, copy) NSArray *passThroughViews;
 @end

@@ -19,6 +19,6 @@
  * passthroughViews object is vacant when this view is attached to the top of UZMultipleLayeredContentViewController objects.
  **/
 @interface UZMultipleLayeredContentBackView : UIView
-@property (nonatomic, copy) NSArray *passthroughViews;
+@property (nonatomic, copy) NSArray *passThroughViews;
 @property (nonatomic, assign) BOOL active;
 @end
