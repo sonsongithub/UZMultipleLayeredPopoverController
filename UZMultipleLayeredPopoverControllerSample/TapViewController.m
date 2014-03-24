@@ -60,12 +60,20 @@
 - (void)showAtButtonFrame:(CGRect)buttonFrame sender:(id)sender direction:(UZMultipleLayeredPopoverDirection)direction {
 	UIApplication *application = [UIApplication sharedApplication];
 	UIViewController *vc = [application.keyWindow.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"TapViewController"];
+#if 0
 	[self presentMultipleLayeredPopoverWithViewController:vc
 											  contentSize:CGSizeMake(320, 480)
 												 fromRect:buttonFrame
 												   inView:self.view
 												direction:direction
 										 passthroughViews:@[sender]];
+#else
+	[self presentMultipleLayeredPopoverWithViewController:vc
+											  contentSize:CGSizeMake(320, 480)
+												 fromRect:buttonFrame
+												   inView:self.view
+												direction:direction];
+#endif
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

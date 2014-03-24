@@ -19,8 +19,7 @@
  * @return The view object that is the farthest descendent the current view and contains point. Returns nil if the point lies completely outside the receiver’s view hierarchy.
  **/
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-	if (![self.passthroughViews count]) {
-		// This view is attached to the top of UZMultipleLayeredContentViewController objects.
+	if (self.active) {
 		return [super hitTest:point withEvent:event];
 	}
 	else {

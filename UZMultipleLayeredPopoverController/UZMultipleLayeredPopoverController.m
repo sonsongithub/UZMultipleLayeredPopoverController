@@ -185,6 +185,7 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
 		[_layeredControllers removeObject:vc];
 		UZMultipleLayeredContentViewController *contentViewController = [_layeredControllers lastObject];
 		contentViewController.backView.passthroughViews = nil;
+		contentViewController.backView.active = YES;
 	}
 }
 
@@ -203,6 +204,7 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
 	{
 		UZMultipleLayeredContentViewController *contentViewController = [_layeredControllers lastObject];
 		contentViewController.backView.passthroughViews = nil;
+		contentViewController.backView.active = YES;
 	}
 }
 
@@ -244,9 +246,9 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
 		_backView.passthroughViews = passthroughViews;
 		self.view = _backView;
 		_layeredControllers = [NSMutableArray array];
-		UZMultipleLayeredContentViewController *object = [[UZMultipleLayeredContentViewController alloc] initWithContentViewController:rootViewController contentSize:contentSize];
-		
-		[_layeredControllers addObject:object];
+		UZMultipleLayeredContentViewController *vc = [[UZMultipleLayeredContentViewController alloc] initWithContentViewController:rootViewController contentSize:contentSize];
+		vc.backView.active = YES;
+		[_layeredControllers addObject:vc];
 		
 		self.view.backgroundColor = [UIColor clearColor];
 	}
@@ -454,9 +456,14 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
 		popoverRect = popoverRects[saved];
 	}
 	
+	for (UZMultipleLayeredContentViewController *vc in _layeredControllers) {
+		vc.backView.active = NO;
+	}
+	
 	// add the new top level view controller
 	[self addChildViewController:contentViewController];
 	[self.view addSubview:contentViewController.view];
+	contentViewController.backView.active = YES;
 	contentViewController.view.frame = popoverRect;
 	[contentViewController updateSubviews];
 }

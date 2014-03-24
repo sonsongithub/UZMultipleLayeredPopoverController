@@ -20,4 +20,5 @@
  **/
 @interface UZMultipleLayeredContentBackView : UIView
 @property (nonatomic, copy) NSArray *passthroughViews;
+@property (nonatomic, assign) BOOL active;
 @end
