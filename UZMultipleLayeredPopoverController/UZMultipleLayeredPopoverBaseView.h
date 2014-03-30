@@ -26,6 +26,6 @@
 @interface UZMultipleLayeredPopoverBaseView : UIView
 
 @property (nonatomic, assign) UZMultipleLayeredPopoverDirection direction;		/**< The direction of the popover’s arrow. The new arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle. */
-@property (nonatomic, assign) float popoverArrowOffset;							/**< The vertical or horizontal offset between the center of rectangle and the position to be rendered an arrow. */
+@property (nonatomic, assign) CGFloat popoverArrowOffset;							/**< The vertical or horizontal offset between the center of rectangle and the position to be rendered an arrow. */
 
 @end

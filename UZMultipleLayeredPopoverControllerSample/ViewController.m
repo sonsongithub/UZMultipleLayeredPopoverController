@@ -24,7 +24,7 @@
 												 fromRect:button.frame
 												   inView:self.view
 												direction:UZMultipleLayeredPopoverAnyDirection
-										 passthroughViews:@[button]];
+										 passThroughViews:@[button]];
 
 }
 

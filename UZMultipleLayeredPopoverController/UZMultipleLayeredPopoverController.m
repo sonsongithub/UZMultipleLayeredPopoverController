@@ -273,8 +273,8 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
 								  direction:(UZMultipleLayeredPopoverDirection)direction
 								popoverRect:(CGRect*)p1
 								contentSize:(CGSize*)p2
-									 offset:(float*)p3 {
-	float popoverOffset = 0;
+									 offset:(CGFloat*)p3 {
+	CGFloat popoverOffset = 0;
 	CGRect popoverRect = CGRectZero;
 	popoverRect.size = UZMultipleLayeredPopoverSizeFromContentSize(specifiedContentSize);
 	CGSize contentSize = specifiedContentSize;
@@ -398,7 +398,7 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
 	CGRect fromRectInPopover = [self.view convertRect:fromRect fromView:inView];
 	CGSize contentSize = CGSizeZero;
 	CGRect popoverRect = CGRectZero;
-	float popoverArrowOffset = 0;
+	CGFloat popoverArrowOffset = 0;
 	
 	if (!(direction & UZMultipleLayeredPopoverAnyDirection))
 		direction = UZMultipleLayeredPopoverAnyDirection;
@@ -419,14 +419,14 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
 		// select the direction whose frame is the largest square in them.
 		CGRect popoverRects[4];
 		CGSize contentSizes[4];
-		float popoverArrowOffsets[4];
+		CGFloat popoverArrowOffsets[4];
 		UZMultipleLayeredPopoverDirection directions[] = {
 			UZMultipleLayeredPopoverBottomDirection,
 			UZMultipleLayeredPopoverTopDirection,
 			UZMultipleLayeredPopoverRightDirection,
 			UZMultipleLayeredPopoverLeftDirection
 		};
-		for (int i = 0; i < 4; i++) {
+		for (NSInteger i = 0; i < 4; i++) {
 			if (directions[i] & direction) {
 				[self getPopoverRectWithsSecifiedContentSize:contentViewController.contentSize
 										fromRectInPopover:fromRectInPopover
@@ -441,10 +441,10 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
 				contentSizes[i] = CGSizeZero;
 			}
 		}
-		int saved = 0;
-		float maxArea = CGSizeGetArea(contentSizes[0]);
-		for (int i = 1; i < 4; i++) {
-			float area = CGSizeGetArea(contentSizes[i]);
+		NSInteger saved = 0;
+		CGFloat maxArea = CGSizeGetArea(contentSizes[0]);
+		for (NSInteger i = 1; i < 4; i++) {
+			CGFloat area = CGSizeGetArea(contentSizes[i]);
 			if (maxArea < area) {
 				maxArea = area;
 				saved = i;
