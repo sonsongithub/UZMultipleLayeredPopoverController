@@ -9,8 +9,8 @@
 #import "UZMultipleLayeredContentViewController.h"
 
 #import "UZMultipleLayeredPopoverBaseView.h"
-#import "UZMultipleLayeredPopoverBackView.h"
 #import "UZMultipleLayeredContentBackView.h"
+#import "UZMultipleLayeredPopoverController+original.h"
 
 /**
  * Returns size of popover which contains view controller, adding UZMultipleLayeredContentViewController's contentEdgeInsets as margin.

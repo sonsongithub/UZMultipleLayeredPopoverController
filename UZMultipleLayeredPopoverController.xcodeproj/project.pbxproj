@@ -11,6 +11,8 @@
 		1446D4B418DE2F3A00F195E7 /* UZMultipleLayeredPopoverBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1446D4B218DE2F3A00F195E7 /* UZMultipleLayeredPopoverBackView.m */; };
 		1446D4B718DF7D1100F195E7 /* UZMultipleLayeredContentBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1446D4B618DF7D1100F195E7 /* UZMultipleLayeredContentBackView.m */; };
 		1446D4B818DF7D1100F195E7 /* UZMultipleLayeredContentBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1446D4B618DF7D1100F195E7 /* UZMultipleLayeredContentBackView.m */; };
+		14A2B43B1909DA7D0015B24C /* UZMultipleLayeredPopoverController+original.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A2B43A1909DA7D0015B24C /* UZMultipleLayeredPopoverController+original.m */; };
+		14A2B43C1909DA7D0015B24C /* UZMultipleLayeredPopoverController+original.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A2B43A1909DA7D0015B24C /* UZMultipleLayeredPopoverController+original.m */; };
 		14FABC361874C00800121BF4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FABC351874C00800121BF4 /* Foundation.framework */; };
 		14FABC3B1874C00800121BF4 /* UZMultipleLayeredPopoverController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 14FABC3A1874C00800121BF4 /* UZMultipleLayeredPopoverController.h */; };
 		14FABC3D1874C00800121BF4 /* UZMultipleLayeredPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FABC3C1874C00800121BF4 /* UZMultipleLayeredPopoverController.m */; };
@@ -51,6 +53,8 @@
 		1446D4B218DE2F3A00F195E7 /* UZMultipleLayeredPopoverBackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UZMultipleLayeredPopoverBackView.m; sourceTree = "<group>"; };
 		1446D4B518DF7D1100F195E7 /* UZMultipleLayeredContentBackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UZMultipleLayeredContentBackView.h; sourceTree = "<group>"; };
 		1446D4B618DF7D1100F195E7 /* UZMultipleLayeredContentBackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UZMultipleLayeredContentBackView.m; sourceTree = "<group>"; };
+		14A2B4391909DA7D0015B24C /* UZMultipleLayeredPopoverController+original.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UZMultipleLayeredPopoverController+original.h"; sourceTree = "<group>"; };
+		14A2B43A1909DA7D0015B24C /* UZMultipleLayeredPopoverController+original.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UZMultipleLayeredPopoverController+original.m"; sourceTree = "<group>"; };
 		14F1F821187FE23A00BB9B0F /* UZMultipleLayeredPopoverController-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UZMultipleLayeredPopoverController-Prefix.pch"; sourceTree = "<group>"; };
 		14FABC321874C00800121BF4 /* libUZMultipleLayeredPopoverController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUZMultipleLayeredPopoverController.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		14FABC351874C00800121BF4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -141,6 +145,8 @@
 				1446D4B218DE2F3A00F195E7 /* UZMultipleLayeredPopoverBackView.m */,
 				14FABC3A1874C00800121BF4 /* UZMultipleLayeredPopoverController.h */,
 				14FABC3C1874C00800121BF4 /* UZMultipleLayeredPopoverController.m */,
+				14A2B4391909DA7D0015B24C /* UZMultipleLayeredPopoverController+original.h */,
+				14A2B43A1909DA7D0015B24C /* UZMultipleLayeredPopoverController+original.m */,
 				14FABCE11874C50200121BF4 /* UZMultipleLayeredContentViewController.h */,
 				14FABCE21874C50200121BF4 /* UZMultipleLayeredContentViewController.m */,
 				14FABCEB18754CC200121BF4 /* UZMultipleLayeredPopoverBaseView.h */,
@@ -271,7 +277,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -x /usr/local/bin/appledoc ]; then\necho \"appledoc is found and executable, will start to create documentation.\"\n/usr/local/bin/appledoc --project-name UZMultipleLayeredPopoverController --project-company sonson --create-html --no-create-docset --no-repeat-first-par --output $SRCROOT ./UZMultipleLayeredPopoverController/   \nelse\necho \"appledoc is not found\"\nfi  ";
+			shellScript = "if [ -x /usr/local/bin/appledoc ]; then\necho \"appledoc is found and executable, will start to create documentation.\"\n/usr/local/bin/appledoc --project-name UZMultipleLayeredPopoverController --project-company sonson --create-html --no-create-docset --no-repeat-first-par --output $SRCROOT ./UZMultipleLayeredPopoverController/UZMultipleLayeredPopoverController.*\nelse\necho \"appledoc is not found\"\nfi  ";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -282,6 +288,7 @@
 			files = (
 				14FABCE31874C50200121BF4 /* UZMultipleLayeredContentViewController.m in Sources */,
 				1446D4B318DE2F3A00F195E7 /* UZMultipleLayeredPopoverBackView.m in Sources */,
+				14A2B43B1909DA7D0015B24C /* UZMultipleLayeredPopoverController+original.m in Sources */,
 				14FABC3D1874C00800121BF4 /* UZMultipleLayeredPopoverController.m in Sources */,
 				14FABCED18754CC200121BF4 /* UZMultipleLayeredPopoverBaseView.m in Sources */,
 				1446D4B718DF7D1100F195E7 /* UZMultipleLayeredContentBackView.m in Sources */,
@@ -299,6 +306,7 @@
 				14FABCE71874FB2700121BF4 /* MyTableViewController.m in Sources */,
 				14FABCEA18750E8400121BF4 /* TapViewController.m in Sources */,
 				14FABCB81874C09700121BF4 /* main.m in Sources */,
+				14A2B43C1909DA7D0015B24C /* UZMultipleLayeredPopoverController+original.m in Sources */,
 				14FABCE01874C1EF00121BF4 /* UZMultipleLayeredPopoverController.m in Sources */,
 				1446D4B418DE2F3A00F195E7 /* UZMultipleLayeredPopoverBackView.m in Sources */,
 				1446D4B818DF7D1100F195E7 /* UZMultipleLayeredContentBackView.m in Sources */,

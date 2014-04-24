@@ -62,15 +62,3 @@ typedef enum _UZMultipleLayeredPopoverDirection {
 - (void)presentMultipleLayeredPopoverWithViewController:(UIViewController*)viewController contentSize:(CGSize)contentSize fromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction passThroughViews:(NSArray*)passThroughViews;
 
 @end
-
-/**
- * @class UZMultipleLayeredPopoverController
- * @author sonson
- * @date 2/1/14
- *
- * @version 1.0
- *
- * @discussion To be written.
- **/
-@interface UZMultipleLayeredPopoverController : UIViewController
-@end
