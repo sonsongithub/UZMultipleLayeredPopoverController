@@ -189,6 +189,7 @@
 				14FABC2E1874C00800121BF4 /* Sources */,
 				14FABC2F1874C00800121BF4 /* Frameworks */,
 				14FABC301874C00800121BF4 /* CopyFiles */,
+				14A2B4371909BDC00015B24C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -257,6 +258,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		14A2B4371909BDC00015B24C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -x /usr/local/bin/appledoc ]; then\necho \"appledoc is found and executable, will start to create documentation.\"\n/usr/local/bin/appledoc --project-name UZMultipleLayeredPopoverController --project-company sonson --create-html --no-create-docset --no-repeat-first-par --output $SRCROOT ./UZMultipleLayeredPopoverController/   \nelse\necho \"appledoc is not found\"\nfi  ";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		14FABC2E1874C00800121BF4 /* Sources */ = {
@@ -395,7 +412,7 @@
 			buildSettings = {
 				DSTROOT = /tmp/UZMultipleLayeredPopoverController.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "UZMultipleLayeredPopoverController/UZMultipleLayeredPopoverController-Prefix.pch";
+				GCC_PREFIX_HEADER = "UZMultipleLayeredPopoverControllerSample/UZMultipleLayeredPopoverController-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -407,7 +424,7 @@
 			buildSettings = {
 				DSTROOT = /tmp/UZMultipleLayeredPopoverController.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "UZMultipleLayeredPopoverController/UZMultipleLayeredPopoverController-Prefix.pch";
+				GCC_PREFIX_HEADER = "UZMultipleLayeredPopoverControllerSample/UZMultipleLayeredPopoverController-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

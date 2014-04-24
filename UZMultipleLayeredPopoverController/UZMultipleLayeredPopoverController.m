@@ -191,6 +191,7 @@ NSString *const UZMultipleLayeredPopoverDidDismissNotification = @"UZMultipleLay
 
 /**
  * Dismiss the layered popovers that are placed between top and sepecified one on UZMultipleLayeredPopoverController.
+ * @param contentViewController The view controller to be removed.
  **/
 - (void)removeChildViewControllersToPopoverContentViewController:(UZMultipleLayeredContentViewController*)contentViewController {
 	DNSLogMethod
