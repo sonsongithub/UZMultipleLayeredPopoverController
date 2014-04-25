@@ -14,16 +14,26 @@ extern NSString *const UZMultipleLayeredPopoverDidDismissNotification;							/**
 /**
  * Constants for specifying the direction of the popover arrow.
  **/
-typedef enum _UZMultipleLayeredPopoverDirection {
-	UZMultipleLayeredPopoverTopDirection		= 1,											/**< An arrow that points upward. */
-	UZMultipleLayeredPopoverBottomDirection		= 1 << 1,										/**< An arrow that points downward. */
-	UZMultipleLayeredPopoverLeftDirection		= 1 << 2,										/**< An arrow that points toward the left. */
-	UZMultipleLayeredPopoverRightDirection		= 1 << 3,										/**< An arrow that points toward the right. */
-	UZMultipleLayeredPopoverAnyDirection		= (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3),	/**< An arrow that points in any direction. */
-	UZMultipleLayeredPopoverVerticalDirection	= (1 << 0) | (1 << 1),							/**< An arrow that points in upward or downward direction. */
-	UZMultipleLayeredPopoverHorizontalDirection	= (1 << 2) | (1 << 3)							/**< An arrow that points in left or right direction. */
-}UZMultipleLayeredPopoverDirection;
+typedef NS_ENUM(NSUInteger, UZMultipleLayeredPopoverDirection) {
+	/** An arrow that points upward. */
+	UZMultipleLayeredPopoverTopDirection		= 1,
+	/** An arrow that points downward. */
+	UZMultipleLayeredPopoverBottomDirection		= 1 << 1,
+	/** An arrow that points toward the left. */
+	UZMultipleLayeredPopoverLeftDirection		= 1 << 2,
+	/** An arrow that points toward the right. */
+	UZMultipleLayeredPopoverRightDirection		= 1 << 3,
+	/** An arrow that points in any direction. */
+	UZMultipleLayeredPopoverAnyDirection		= (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3),
+	/** An arrow that points in upward or downward direction. */
+	UZMultipleLayeredPopoverVerticalDirection	= (1 << 0) | (1 << 1),
+	/** An arrow that points in left or right direction. */
+	UZMultipleLayeredPopoverHorizontalDirection	= (1 << 2) | (1 << 3)
+};
 
+/**
+ * This library adds methods to UIViewController to support the multi-layered popover controllers.
+ **/
 @interface UIViewController (UZMultipleLayeredPopoverController)
 
 /**
