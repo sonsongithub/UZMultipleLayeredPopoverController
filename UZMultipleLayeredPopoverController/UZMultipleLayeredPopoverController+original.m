@@ -32,7 +32,6 @@
 @implementation UZMultipleLayeredPopoverController
 
 - (void)dealloc {
-    DNSLogMethod
 }
 
 #pragma mark - Override
@@ -44,7 +43,6 @@
  * @param event A UIEvent object representing the event to which the touches belong.
  **/
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	DNSLogMethod
 	UITouch *touch = [touches anyObject];
 	CGPoint touchPoint = [touch locationInView:self.view];
 	
@@ -102,7 +100,6 @@
  * @param contentViewController The view controller to be removed.
  **/
 - (void)removeChildViewControllersToPopoverContentViewController:(UZMultipleLayeredContentViewController*)contentViewController {
-	DNSLogMethod
 	for (UIViewController *vc in [_layeredControllers reverseObjectEnumerator]) {
 		if (vc == contentViewController)
 			break;
