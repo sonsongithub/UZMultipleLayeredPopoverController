@@ -8,11 +8,18 @@
 
 #import "AppDelegate.h"
 
+#import "UZMultipleLayeredPopoverController.h"
+
 @implementation AppDelegate
+
+- (void)dismiss:(NSNotification*)notification {
+	NSLog(@"%@", UZMultipleLayeredPopoverDidDismissNotification);
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismiss:) name:UZMultipleLayeredPopoverDidDismissNotification object:nil];
     return YES;
 }
 							

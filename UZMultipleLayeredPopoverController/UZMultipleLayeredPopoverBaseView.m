@@ -7,18 +7,13 @@
 //
 
 #import "UZMultipleLayeredPopoverBaseView.h"
-
-@interface UZMultipleLayeredPopoverBaseView () {
-	UIEdgeInsets						_contentEdgeInsets;
-	UZMultipleLayeredPopoverDirection	_direction;
-	float								_popoverArrowOffset;
-}
-@end
+#import "UZMultipleLayeredContentViewController.h"
 
 @implementation UZMultipleLayeredPopoverBaseView
 
-- (id)initWithFrame:(CGRect)frame
-{
+#pragma mark - Overide
+
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
@@ -28,6 +23,24 @@
     return self;
 }
 
+- (void)drawRect:(CGRect)rect {
+	CGRect r = rect;
+	// Shrink the rectangle in which the contents is rendered.
+	UIEdgeInsets contentEdgeInsets = [UZMultipleLayeredContentViewController contentEdgeInsets];
+	r.origin.x = contentEdgeInsets.left;
+	r.origin.y = contentEdgeInsets.top;
+	r.size.width = r.size.width - (contentEdgeInsets.left + contentEdgeInsets.right);
+	r.size.height = r.size.height - (contentEdgeInsets.top + contentEdgeInsets.bottom);
+	[self drawRoundCornerRect:r];
+}
+
+#pragma mark - Instance method
+
+/**
+ * Draws round corner rectangle and arrow for popover.
+ * A tip of arrow is located at the point according to direction and popoverArrowOffset.
+ * @param rect Rectangle of view to draw contents.
+ **/
 - (void)drawRoundCornerRect:(CGRect)rect {
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	
@@ -98,15 +111,6 @@
 	CGContextDrawPath(context, kCGPathFill);
 	
 	CGContextRestoreGState(context);
-}
-
-- (void)drawRect:(CGRect)rect {
-	CGRect r = rect;
-	r.origin.x = _contentEdgeInsets.left;
-	r.origin.y = _contentEdgeInsets.top;
-	r.size.width = r.size.width - (_contentEdgeInsets.left + _contentEdgeInsets.right);
-	r.size.height = r.size.height - (_contentEdgeInsets.top + _contentEdgeInsets.bottom);
-	[self drawRoundCornerRect:r];
 }
 
 @end
