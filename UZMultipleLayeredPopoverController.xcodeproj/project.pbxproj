@@ -53,6 +53,7 @@
 		1446D4B218DE2F3A00F195E7 /* UZMultipleLayeredPopoverBackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UZMultipleLayeredPopoverBackView.m; sourceTree = "<group>"; };
 		1446D4B518DF7D1100F195E7 /* UZMultipleLayeredContentBackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UZMultipleLayeredContentBackView.h; sourceTree = "<group>"; };
 		1446D4B618DF7D1100F195E7 /* UZMultipleLayeredContentBackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UZMultipleLayeredContentBackView.m; sourceTree = "<group>"; };
+		14605C08190B8B400086C192 /* SparkInspector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SparkInspector.framework; path = "../../../../Applications/Spark Inspector.app/Contents/Resources/Frameworks/SparkInspector.framework"; sourceTree = "<group>"; };
 		14A2B4391909DA7D0015B24C /* UZMultipleLayeredPopoverController+original.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UZMultipleLayeredPopoverController+original.h"; sourceTree = "<group>"; };
 		14A2B43A1909DA7D0015B24C /* UZMultipleLayeredPopoverController+original.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UZMultipleLayeredPopoverController+original.m"; sourceTree = "<group>"; };
 		14F1F821187FE23A00BB9B0F /* UZMultipleLayeredPopoverController-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UZMultipleLayeredPopoverController-Prefix.pch"; sourceTree = "<group>"; };
@@ -128,6 +129,7 @@
 		14FABC341874C00800121BF4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				14605C08190B8B400086C192 /* SparkInspector.framework */,
 				14FABC351874C00800121BF4 /* Foundation.framework */,
 				14FABC431874C00800121BF4 /* XCTest.framework */,
 				14FABC461874C00800121BF4 /* UIKit.framework */,
@@ -449,6 +451,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(SYSTEM_APPS_DIR)/Spark",
+					Inspector.app/Contents/Resources/Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UZMultipleLayeredPopoverControllerSample/UZMultipleLayeredPopoverController-Prefix.pch";
@@ -475,6 +479,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(SYSTEM_APPS_DIR)/Spark",
+					Inspector.app/Contents/Resources/Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UZMultipleLayeredPopoverControllerSample/UZMultipleLayeredPopoverController-Prefix.pch";

@@ -39,7 +39,6 @@ CGSize UZMultipleLayeredPopoverSizeFromContentSize(CGSize contentSize) {
 #pragma mark - Instance method
 
 - (void)dealloc {
-    DNSLogMethod
 }
 
 /**
