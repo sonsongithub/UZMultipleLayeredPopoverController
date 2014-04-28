@@ -6,7 +6,7 @@
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.1 (build 858)" />
+		<meta name="generator" content="appledoc 2.2 (build 961)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -51,10 +51,6 @@
 	
 	<option value="//api/name/presentMultipleLayeredPopoverWithViewController:contentSize:fromRect:inView:direction:passThroughViews:">&nbsp;&nbsp;&nbsp;&nbsp;- presentMultipleLayeredPopoverWithViewController:contentSize:fromRect:inView:direction:passThroughViews:</option>
 	
-	<option value="//api/name/rootViewController">&nbsp;&nbsp;&nbsp;&nbsp;- rootViewController</option>
-	
-	<option value="//api/name/targetViewController">&nbsp;&nbsp;&nbsp;&nbsp;- targetViewController</option>
-	
 	
 	
 </select>
@@ -91,10 +87,6 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/presentMultipleLayeredPopoverWithViewController:contentSize:fromRect:inView:direction:passThroughViews:">presentMultipleLayeredPopoverWithViewController:contentSize:fromRect:inView:direction:passThroughViews:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/rootViewController">rootViewController</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/targetViewController">targetViewController</a></span></li>
-	
 </ul></li>
 
 
@@ -119,7 +111,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">UZMultipleLayeredPopoverController.h<br />UZMultipleLayeredPopoverController.m</td>
+	<td class="specification-value">UZMultipleLayeredPopoverController.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -142,7 +134,7 @@
 						
 						
 						
-						<h3 class="subsubtitle task-title">Other Methods</h3>
+						
 
 						<ul class="task-list">
 							<li>
@@ -166,26 +158,6 @@
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/presentMultipleLayeredPopoverWithViewController:contentSize:fromRect:inView:direction:passThroughViews:">&ndash;&nbsp;presentMultipleLayeredPopoverWithViewController:contentSize:fromRect:inView:direction:passThroughViews:</a></code>
-	</span>
-	
-	
-</li>
-						</ul>
-						
-						
-						
-						<h3 class="subsubtitle task-title">Other Methods</h3>
-
-						<ul class="task-list">
-							<li>
-	<span class="tooltip">
-		<code><a href="#//api/name/rootViewController">&ndash;&nbsp;rootViewController</a></code>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/targetViewController">&ndash;&nbsp;targetViewController</a></code>
 	</span>
 	
 	
@@ -320,7 +292,7 @@ The popover is always displayed on the unique UZMultipleLayeredPopoverController
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>direction</em></dt>
-			<dd><p>The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.</p></dd>
+			<dd><p>The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle. See <a href="../Constants/UZMultipleLayeredPopoverDirection.html">UZMultipleLayeredPopoverDirection</a> constants.</p></dd>
 		</dl>
 		
 	</div>
@@ -387,7 +359,7 @@ The popover is always displayed on the unique UZMultipleLayeredPopoverController
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>direction</em></dt>
-			<dd><p>The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.</p></dd>
+			<dd><p>The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle. See <a href="../Constants/UZMultipleLayeredPopoverDirection.html">UZMultipleLayeredPopoverDirection</a> constants.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -417,91 +389,6 @@ The popover is always displayed on the unique UZMultipleLayeredPopoverController
 	
 </div>
 						
-						<div class="section-method">
-	<a name="//api/name/rootViewController" title="rootViewController"></a>
-	<h3 class="subsubtitle method-title">rootViewController</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Returns the bottom of view controller&rsquo;s hierarchy parsing each view controllers' parents.
-Typically, this method returns the object is as same as one UIWindow&rsquo;s keyWindow&rsquo;s rootViewController method returns.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (UIViewController *)rootViewController</code></div>
-
-    
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>UIViewController object which is the bottom of view controller&rsquo;s hierarchy.</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UZMultipleLayeredPopoverController.m</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/targetViewController" title="targetViewController"></a>
-	<h3 class="subsubtitle method-title">targetViewController</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Returns the view controller object which has to be attached a new view controller as popover.
-If UZMultipleLayeredPopoverController object is not attached, typically returns the object is as same as one UIWindow&rsquo;s keyWindow&rsquo;s <a href="#//api/name/rootViewController">rootViewController</a> method.
-If more than one view controllers are presented, returns UZMultipleLayeredPopoverController object.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (UIViewController *)targetViewController</code></div>
-
-    
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>UIViewController object which is the bottom of view controller&rsquo;s hierarchy.</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UZMultipleLayeredPopoverController.m</code><br />
-	</div>				
-	
-	
-</div>
-						
 					</div>
 					
 					
@@ -517,9 +404,9 @@ If more than one view controllers are presented, returns UZMultipleLayeredPopove
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2014 sonson. All rights reserved. (Last updated: 2014-04-25)</span><br />
+						<p><span class="copyright">&copy; 2014 sonson. All rights reserved. (Last updated: 2014-04-29)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 961)</a>.</span></p>
 						
 					</div>
 				</div>

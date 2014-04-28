@@ -279,7 +279,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -x /usr/local/bin/appledoc ]; then\necho \"appledoc is found and executable, will start to create documentation.\"\n/usr/local/bin/appledoc --project-name UZMultipleLayeredPopoverController --project-company sonson --create-html --no-create-docset --no-repeat-first-par --output $SRCROOT ./UZMultipleLayeredPopoverController/UZMultipleLayeredPopoverController.*\nelse\necho \"appledoc is not found\"\nfi  ";
+			shellScript = "if [ -x /usr/local/bin/appledoc ]; then\necho \"appledoc is found and executable, will start to create documentation.\"\n/usr/local/bin/appledoc --project-name UZMultipleLayeredPopoverController --project-company sonson --create-html --no-create-docset --no-repeat-first-par --output $SRCROOT ./UZMultipleLayeredPopoverController/UZMultipleLayeredPopoverController.h\nelse\necho \"appledoc is not found\"\nfi  ";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -54,7 +54,7 @@ typedef NS_ENUM(NSUInteger, UZMultipleLayeredPopoverDirection) {
  * @param contentSize The new size to apply to the content view.
  * @param fromRect The rectangle in view at which to anchor the popover.
  * @param inView The view containing the anchor rectangle for the popover.
- * @param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
+ * @param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle. See UZMultipleLayeredPopoverDirection constants.
  **/
 - (void)presentMultipleLayeredPopoverWithViewController:(UIViewController*)viewController contentSize:(CGSize)contentSize fromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction;
 
@@ -66,7 +66,7 @@ typedef NS_ENUM(NSUInteger, UZMultipleLayeredPopoverDirection) {
  * @param contentSize The new size to apply to the content view.
  * @param fromRect The rectangle in view at which to anchor the popover.
  * @param inView The view containing the anchor rectangle for the popover.
- * @param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle.
+ * @param direction The arrow directions the popover is permitted to use. You can use this value to force the popover to be positioned on a specific side of the rectangle. See UZMultipleLayeredPopoverDirection constants.
  * @param passThroughViews An array of views in "inView" argument that the user can interact with while the popover is visible.
  **/
 - (void)presentMultipleLayeredPopoverWithViewController:(UIViewController*)viewController contentSize:(CGSize)contentSize fromRect:(CGRect)fromRect inView:(UIView*)inView direction:(UZMultipleLayeredPopoverDirection)direction passThroughViews:(NSArray*)passThroughViews;
