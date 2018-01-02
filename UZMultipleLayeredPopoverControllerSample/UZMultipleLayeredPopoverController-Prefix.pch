@@ -16,11 +16,12 @@
 	#endif
 #endif
 
-#if TARGET_IPHONE_SIMULATOR
-	#import <objc/objc-runtime.h>
-#else
-	#import <objc/runtime.h>
-#endif
+//#if TARGET_IPHONE_SIMULATOR
+//    #import <objc/objc-runtime.h>
+//#else
+//    #import <objc/runtime.h>
+//#endif
+#import <objc/runtime.h>
 
 #ifdef	_DEBUG
 	#define	DNSLog(...)		NSLog(__VA_ARGS__);

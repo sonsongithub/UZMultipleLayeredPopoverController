@@ -211,7 +211,7 @@
 			
 			// Adjust width when right edge goes over the parent view.
 			if (popoverRect.origin.x + popoverRect.size.width > self.view.frame.size.width) {
-				contentSize.width -= fabsf(popoverRect.origin.x + popoverRect.size.width - self.view.frame.size.width);
+                contentSize.width -= fabs(popoverRect.origin.x + popoverRect.size.width - self.view.frame.size.width);
 				popoverRect.size = UZMultipleLayeredPopoverSizeFromContentSize(contentSize);
 				popoverOffset = - (CGRectGetMidX(fromRectInPopover) - popoverRect.size.width/2);
 			}
@@ -222,7 +222,7 @@
 			
 			// Adjust width when right edge goes over the parent view.
 			if (popoverRect.origin.x < 0) {
-				contentSize.width -= fabsf(popoverRect.origin.x);
+                contentSize.width -= fabs(popoverRect.origin.x);
 				popoverRect.size = UZMultipleLayeredPopoverSizeFromContentSize(contentSize);
 				popoverOffset = - (CGRectGetMidX(fromRectInPopover) - popoverRect.size.width/2);
 				popoverRect.origin.x = 0;
@@ -236,7 +236,7 @@
 			
 			// Adjust width when top edge goes over the parent view.
 			if (popoverRect.origin.y + popoverRect.size.height > self.view.frame.size.height) {
-				contentSize.height -= fabsf(popoverRect.origin.y + popoverRect.size.height - self.view.frame.size.height);
+                contentSize.height -= fabs(popoverRect.origin.y + popoverRect.size.height - self.view.frame.size.height);
 				popoverRect.size = UZMultipleLayeredPopoverSizeFromContentSize(contentSize);
 				popoverOffset = - (CGRectGetMidY(fromRectInPopover) - popoverRect.size.height/2);
 			}
@@ -247,7 +247,7 @@
 			
 			// Adjust width when right edge goes over the parent view.
 			if (popoverRect.origin.y < 0) {
-				contentSize.height -= fabsf(popoverRect.origin.y);
+                contentSize.height -= fabs(popoverRect.origin.y);
 				popoverRect.size = UZMultipleLayeredPopoverSizeFromContentSize(contentSize);
 				popoverOffset = - (CGRectGetMidY(fromRectInPopover) - popoverRect.size.height/2);
 				popoverRect.origin.y = 0;
@@ -258,14 +258,14 @@
 	if (direction == UZMultipleLayeredPopoverTopDirection) {
 		// Adjust height when bottom edge goes over the parent view.
 		if (popoverRect.origin.y + popoverRect.size.height > self.view.frame.size.height) {
-			contentSize.height -= fabsf(popoverRect.origin.y + popoverRect.size.height - self.view.frame.size.height);
+            contentSize.height -= fabs(popoverRect.origin.y + popoverRect.size.height - self.view.frame.size.height);
 			popoverRect.size = UZMultipleLayeredPopoverSizeFromContentSize(contentSize);
 		}
 	}
 	else if (direction == UZMultipleLayeredPopoverBottomDirection) {
 		// Adjust height when bottom edge goes over the parent view.
 		if (popoverRect.origin.y < 0) {
-			contentSize.height -= fabsf(popoverRect.origin.y);
+            contentSize.height -= fabs(popoverRect.origin.y);
 			popoverRect.size = UZMultipleLayeredPopoverSizeFromContentSize(contentSize);
 			popoverRect.origin.y = 0;
 		}
@@ -273,14 +273,14 @@
 	else if (direction == UZMultipleLayeredPopoverRightDirection) {
 		// Adjust height when bottom edge goes over the parent view.
 		if (popoverRect.origin.x + popoverRect.size.width > self.view.frame.size.width) {
-			contentSize.width -= fabsf(popoverRect.origin.x + popoverRect.size.width - self.view.frame.size.width);
+            contentSize.width -= fabs(popoverRect.origin.x + popoverRect.size.width - self.view.frame.size.width);
 			popoverRect.size = UZMultipleLayeredPopoverSizeFromContentSize(contentSize);
 		}
 	}
 	else if (direction == UZMultipleLayeredPopoverLeftDirection) {
 		// Adjust height when bottom edge goes over the parent view.
 		if (popoverRect.origin.x < 0) {
-			contentSize.width -= fabsf(popoverRect.origin.x);
+			contentSize.width -= fabs(popoverRect.origin.x);
 			popoverRect.size = UZMultipleLayeredPopoverSizeFromContentSize(contentSize);
 			popoverRect.origin.x = 0;
 		}

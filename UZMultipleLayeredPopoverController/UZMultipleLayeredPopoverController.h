@@ -2,12 +2,20 @@
 //  UZMultipleLayeredPopoverController.h
 //  UZMultipleLayeredPopoverController
 //
-//  Created by sonson on 2014/01/02.
-//  Copyright (c) 2014年 sonson. All rights reserved.
+//  Created by Yuichi Yoshida on 2018/01/02.
+//  Copyright © 2018年 sonson. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+//! Project version number for UZMultipleLayeredPopoverController.
+FOUNDATION_EXPORT double UZMultipleLayeredPopoverControllerVersionNumber;
+
+//! Project version string for UZMultipleLayeredPopoverController.
+FOUNDATION_EXPORT const unsigned char UZMultipleLayeredPopoverControllerVersionString[];
+
+// In this header, you should import all the public headers of your framework using statements like #import <UZMultipleLayeredPopoverController/PublicHeader.h>
 
 extern NSString *const UZMultipleLayeredPopoverDidDismissNotification;							/**< Posted shortly after UZMultipleLayeredPopoverController is dismissed. The object of the notification is the UZMultipleLayeredPopoverController object. There is no userInfo dictionary. */
 
